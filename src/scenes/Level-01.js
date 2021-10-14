@@ -459,56 +459,58 @@ export default class Level01 extends Phaser.Scene {
             }
         });
 
+        // Collider of map
+        this.map_collider_1 = this.physics.add.sprite(0, 290, 'back-button')
+        .setSize(10, 600)
+        .setVisible(0)
+        .setImmovable(1);
+        this.physics.add.collider(this.player, this.map_collider_1);
+        this.map_collider_2 = this.physics.add.sprite(16000, 290, 'back-button')
+        .setSize(10, 600)
+        .setVisible(0)
+        .setImmovable(1);
+        this.physics.add.collider(this.player, this.map_collider_2);
+
         // Set Thorn body collider
-        this.thorn_collider_1= this.physics.add.sprite(1110, 520, 'background-03')
-        .setScale(0.5, 0.05)
-        .setOrigin(0.5)
+        this.thorn_collider_1 = this.physics.add.sprite(800, 500, 'back-button')
+        .setSize(500, 10)
         .setVisible(0);
-        this.thorn_collider_1.body.setSize(1000,10).setOffset(10,10);
         this.physics.add.overlap(this.player, this.thorn_collider_1, () => {
             this.player.isHurt = true;
             this.player.hurt(2);
             this.player.setVelocityY(-JUMP_SPEED);
             this.player.anims.play('anim-mossy-jump', true);
         });
-        this.thorn_collider_2 = this.physics.add.sprite(5510, 520, 'background-03')
-        .setScale(0.5, 0.05)
-        .setOrigin(0.5)
+        this.thorn_collider_2 = this.physics.add.sprite(5210, 500, 'back-button')
+        .setSize(500, 10)
         .setVisible(0);
-        this.thorn_collider_2.body.setSize(1000,10).setOffset(10,10);
         this.physics.add.overlap(this.player, this.thorn_collider_2, () => {
             this.player.isHurt = true;
             this.player.hurt(2);
             this.player.setVelocityY(-JUMP_SPEED);
             this.player.anims.play('anim-mossy-jump', true);
         });
-        this.thorn_collider_3 = this.physics.add.sprite(3250, 520, 'background-03')
-        .setScale(0.5, 0.05)
-        .setOrigin(0.5)
+        this.thorn_collider_3 = this.physics.add.sprite(3500, 510, 'back-button')
+        .setSize(1500, 10)
         .setVisible(0);
-        this.thorn_collider_3.body.setSize(3000,10).setOffset(10,10);
         this.physics.add.overlap(this.player, this.thorn_collider_3, () => {
             this.player.isHurt = true;
             this.player.hurt(2);
             this.player.setVelocityY(-JUMP_SPEED);
             this.player.anims.play('anim-mossy-jump', true);
         });
-        this.thorn_collider_4 = this.physics.add.sprite(11850, 520, 'background-03')
-        .setScale(0.5, 0.05)
-        .setOrigin(0.5)
+        this.thorn_collider_4 = this.physics.add.sprite(11500, 510, 'back-button')
+        .setSize(800, 10)
         .setVisible(0);
-        this.thorn_collider_4.body.setSize(1000,10).setOffset(10,10);
         this.physics.add.overlap(this.player, this.thorn_collider_4, () => {
             this.player.isHurt = true;
             this.player.hurt(2);
             this.player.setVelocityY(-JUMP_SPEED);
             this.player.anims.play('anim-mossy-jump', true);
         });
-        this.thorn_collider_5 = this.physics.add.sprite(9610, 520, 'background-03')
-        .setScale(0.5, 0.05)
-        .setOrigin(0.5)
+        this.thorn_collider_5 = this.physics.add.sprite(9320, 520, 'back-button')
+        .setSize(500, 10)
         .setVisible(0);
-        this.thorn_collider_5.body.setSize(1000,10).setOffset(10,10);
         this.physics.add.overlap(this.player, this.thorn_collider_5, () => {
             this.player.isHurt = true;
             this.player.hurt(2);
