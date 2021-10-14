@@ -26,7 +26,8 @@ export default class LevelSelect extends Phaser.Scene {
         this.levelComingSoonButton = this.add.image(535, 250, 'level-coming-soon-button')
         .setInteractive();
 
-        this.backButton = this.add.image(600, 490, 'back-button')
+        this.backButton = this.add.image(600, 480, 'back-button')
+        .setScale(0.75)
         .setInteractive();
 
         this.level01Button.on('pointerover', () => {
@@ -66,6 +67,8 @@ export default class LevelSelect extends Phaser.Scene {
             this.backButton.setTexture('back-button-click');
         });
         this.backButton.on('pointerup', () => {
+            this.backButton.setTexture('back-button');
+            this.scene.bringToTop('menu');    
             this.scene.start('menu');
         });
     }

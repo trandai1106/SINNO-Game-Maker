@@ -43,20 +43,22 @@ export default class SlimeEnemy extends Enemy {
         this.healthBarBorder.strokeRect(0, 0, 70, 5);
     }
 
-    // destroy
     setDestroy() {
-        this.lightEnemy.setIntensity(0)
-        this.healthBar.destroy()
-        this.healthBarBorder.destroy()
-        this.destroy()
+        this.anims.play('anim-skull-smoke-green');
+        setTimeout(() => {
+            this.lightEnemy.setIntensity(0);
+            this.healthBar.destroy();
+            this.healthBarBorder.destroy();
+            this.destroy();
+        }, 2000);
     }
 
     // stay health bar
     stayHealthBar(x, y) {
-        this.healthBar.x = x - 30
-        this.healthBar.y = y - 80
-        this.healthBarBorder.x = x - 30
-        this.healthBarBorder.y = y - 80
+        this.healthBar.x = x - 30;
+        this.healthBar.y = y - 80;
+        this.healthBarBorder.x = x - 30;
+        this.healthBarBorder.y = y - 80;
         this.healthBar.fillStyle('0x000000', 1);
         this.healthBar.fillRect(0, 0, 70, 5);
         this.healthBar.fillStyle('0xff0000', 1);
@@ -65,41 +67,41 @@ export default class SlimeEnemy extends Enemy {
 
     // set Light 
     setLight(x, y) {
-        this.lightEnemy.x = x
-        this.lightEnemy.y = y
+        this.lightEnemy.x = x;
+        this.lightEnemy.y = y;
     }
 
     // set enemy direct (allways looks at player)
     setFace(x, playerX) {
         if (x > playerX) {
-            this.flipX = true
+            this.flipX = true;
         } else {
-            this.flipX = false
+            this.flipX = false;
         }
     }
 
     // set range movement
     setRangeMove(x, y, ox, oy, vx, vy) {
-        this.rangeX = x
-        this.rangeY = y
-        this.moveX = ox
-        this.moveY = oy
-        this.velocityX = vx
-        this.velocityY = vy
+        this.rangeX = x;
+        this.rangeY = y;
+        this.moveX = ox;
+        this.moveY = oy;
+        this.velocityX = vx;
+        this.velocityY = vy;
     }
 
     // set enemies movement
     setMove(x, y) {
         if (this.moveX == 1) {
             if (x <= this.rangeX) {
-                this.setVelocityX(this.velocityX > 0 ? this.velocityX : -this.velocityX)
+                this.setVelocityX(this.velocityX > 0 ? this.velocityX : -this.velocityX);
             }
             if (x >= this.rangeY) {
-                this.setVelocityX(this.velocityX > 0 ? -this.velocityX : this.velocityX)
+                this.setVelocityX(this.velocityX > 0 ? -this.velocityX : this.velocityX);
             }
             if (x > this.rangeX && x < this.rangeY && this.first == 0) {
-                this.setVelocityX(this.velocityX)
-                this.first = 1
+                this.setVelocityX(this.velocityX);
+                this.first = 1;
             }
         }
     }

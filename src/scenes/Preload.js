@@ -39,6 +39,8 @@ export default class Preload extends Phaser.Scene {
         this.load.image('menu-frame', 'assets/sprites/GUI/menu_frame.png');
         this.load.image('select-level-frame', 'assets/sprites/GUI/select-level_frame.png');
         this.load.image('pause-frame', 'assets/sprites/GUI/pause_frame.png');
+        this.load.image('win-frame', 'assets/sprites/GUI/win_frame.png');
+        this.load.image('lose-frame', 'assets/sprites/GUI/lose_frame.png');
         this.load.image('about', 'assets/sprites/GUI/About.png');
         this.load.image('health-bar', 'assets/sprites/GUI/Health-bar.png');
         this.load.image('pause-button', 'assets/sprites/GUI/Pause.png');
@@ -71,6 +73,9 @@ export default class Preload extends Phaser.Scene {
         this.load.image('exit-button', 'assets/sprites/GUI/exit_button.png');
         this.load.image('exit-button-hover', 'assets/sprites/GUI/exit_button_hover.png');
         this.load.image('exit-button-click', 'assets/sprites/GUI/exit_button_click.png');
+        this.load.image('next-level-button', 'assets/sprites/GUI/Next_level_button.png');
+        this.load.image('next-level-button-hover', 'assets/sprites/GUI/Next_level_button_hover.png');
+        this.load.image('next-level-button-click', 'assets/sprites/GUI/Next_level_button_click.png');
         this.load.image('level-01-button', 'assets/sprites/GUI/level-01.png');
         this.load.image('level-01-button-hover', 'assets/sprites/GUI/level-01_hover.png');
         this.load.image('level-01-button-click', 'assets/sprites/GUI/level-01_click.png');
@@ -80,10 +85,8 @@ export default class Preload extends Phaser.Scene {
 
         // Load platform tilemap
         this.load.tilemapTiledJSON('map-01', 'assets/sprites/Environment/MossyTileset/map-01.json');
-        this.load.tilemapTiledJSON('map-02', 'assets/sprites/Environment/MossyTileset/map-02.json');
         
         this.load.image('tileset-1', 'assets/sprites/Environment/MossyTileset/Mossy - TileSet.png');
-        this.load.image('tileset-2', 'assets/sprites/Environment/MossyTileset/Mossy-Tileset-2.png');
         
         // Scene details
 
@@ -121,10 +124,6 @@ export default class Preload extends Phaser.Scene {
             frameWidth: 768,
             frameHeight: 768
         });
-        // this.load.spritesheet('plant-1', 'assets/sprites/Environment/Plant Animations/plant-1.png', {
-        //     frameWidth: 512,
-        //     frameHeight: 512
-        // });
         this.load.spritesheet('plant-2', 'assets/sprites/Environment/Plant Animations/plant-2.png', {
             frameWidth: 512,
             frameHeight: 512
@@ -149,29 +148,9 @@ export default class Preload extends Phaser.Scene {
             frameWidth: 512,
             frameHeight: 512
         });
-        // this.load.spritesheet('plant-8', 'assets/sprites/Environment/Plant Animations/plant-8.png', {
-        //     frameWidth: 512,
-        //     frameHeight: 512
-        // });
-        // this.load.spritesheet('plant-wind', 'assets/sprites/Environment/Plant Animations/plant-wind.png', {
-        //     frameWidth: 512,
-        //     frameHeight: 512
-        // });
-        // this.load.spritesheet('plant-jump-elastic', 'assets/sprites/Environment/Plant Animations/plant-jump-elastic.png', {
-        //     frameWidth: 512,
-        //     frameHeight: 512
-        // });
-        // this.load.spritesheet('plant-jump-idle', 'assets/sprites/Environment/Plant Animations/plant-jump-idle.png', {
-        //     frameWidth: 512,
-        //     frameHeight: 512
-        // });
         this.load.spritesheet('slime-orange', 'assets/sprites/Slimes/slime-orange.png', {
             frameWidth: 204,
             frameHeight: 164
-        });
-        this.load.spritesheet('slime-green', 'assets/sprites/Slimes/slime-green.png', {
-            frameWidth: 376,
-            frameHeight: 256
         });
 
         // Enemy
@@ -343,34 +322,9 @@ export default class Preload extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers("plant-7", { start: 0, end: 59 }),
             repeat: -1
         });
-        // this.anims.create({ key: "anim-plant-8",
-        //     frameRate: 14,
-        //     frames: this.anims.generateFrameNumbers("plant-8", { start: 0, end: 29 }),
-        //     repeat: -1
-        // });
-        // this.anims.create({ key: "anim-plant-wind",
-        //     frameRate: 14,
-        //     frames: this.anims.generateFrameNumbers("plant-wind", { start: 0, end: 29 }),
-        //     repeat: -1
-        // });        
-        // this.anims.create({ key: "anim-plant-jump-elastic",
-        //     frameRate: 18,
-        //     frames: this.anims.generateFrameNumbers("plant-jump-elastic", { start: 0, end: 19 }),
-        //     repeat: -1
-        // });
-        // this.anims.create({ key: "anim-plant-jump-idle",
-        //     frameRate: 12,
-        //     frames: this.anims.generateFrameNumbers("plant-jump-idle", { start: 0, end: 19 }),
-        //     repeat: -1
-        // });
         this.anims.create({ key: "anim-slime-orange",
             frameRate: 12,
             frames: this.anims.generateFrameNumbers("slime-orange", { start: 0, end: 29 }),
-            repeat: -1
-        });
-        this.anims.create({ key: "anim-slime-green",
-            frameRate: 12,
-            frames: this.anims.generateFrameNumbers("slime-green", { start: 0, end: 29 }),
             repeat: -1
         });
 
@@ -477,15 +431,7 @@ export default class Preload extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers("thunder", { start: 0, end: 7 }),
             repeat: -1
         });
-        
-        // Delay and change scene
-        // this.time.addEvent({
-        //     delay: 1000,
-        //     callback: () => {
-        //         this.scene.start('play');
-        //     },
-        //     callbackScope: this
-        // });
+
         this.scene.start('menu');
     }
 }

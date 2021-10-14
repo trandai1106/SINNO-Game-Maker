@@ -7,7 +7,7 @@ export default class Pause extends Phaser.Scene {
 
     init(data) {
         this.playingMusic = data.playingMusic;
-        this.sceneKey = data.key;
+        this.sceneKey = data.sceneKey;
     }
 
     create() {
@@ -34,9 +34,9 @@ export default class Pause extends Phaser.Scene {
         });
         this.resumeButton.on('pointerup', () => {
             this.resumeButton.setTexture('resume-button');
-            this.scene.bringToTop('level-01');
+            this.scene.bringToTop(this.sceneKey);
             if (this.playingMusic) this.sound.resumeAll();
-            this.scene.resume('level-01');
+            this.scene.resume(this.sceneKey);
         });
         this.resumeButton.on('pointerout', () => {
             this.resumeButton.setTexture('resume-button');
@@ -50,9 +50,9 @@ export default class Pause extends Phaser.Scene {
         });
         this.resumeButton2.on('pointerup', () => {
             this.resumeButton2.setTexture('resume-button-2');
-            this.scene.bringToTop('level-01');
+            this.scene.bringToTop(this.sceneKey);
             if (this.playingMusic) this.sound.resumeAll();
-            this.scene.resume('level-01');
+            this.scene.resume(this.sceneKey);
         });
         this.resumeButton2.on('pointerout', () => {
             this.resumeButton2.setTexture('resume-button-2');
@@ -65,7 +65,10 @@ export default class Pause extends Phaser.Scene {
             this.restartButton.setTexture('restart-button-click');
         });
         this.restartButton.on('pointerup', () => {
-            this.scene.start('level-01');
+            this.restartButton.setTexture('restart-button');
+            this.sound.removeAll();
+            this.scene.bringToTop(this.sceneKey);
+            this.scene.start(this.sceneKey);
         });
         this.restartButton.on('pointerout', () => {
             this.restartButton.setTexture('restart-button');
@@ -78,8 +81,10 @@ export default class Pause extends Phaser.Scene {
             this.exitButton.setTexture('exit-button-click');
         });
         this.exitButton.on('pointerup', () => {
-            this.scene.bringToTop('menu');    
-            this.scene.start('menu');
+            this.exitButton.setTexture('exit-button');
+            this.sound.removeAll();
+            this.scene.bringToTop('level-select');    
+            this.scene.start('level-select');
         });
         this.exitButton.on('pointerout', () => {
             this.exitButton.setTexture('exit-button');

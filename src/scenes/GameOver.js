@@ -1,49 +1,109 @@
 import Phaser from '../lib/phaser.js';
 
-export default class Pause extends Phaser.Scene {
+export default class GameOver extends Phaser.Scene {
     constructor() {
         super("game-over");
     }
 
     init(data) {
-        this.playingMusic = data.playingMusic;
-        this.sceneKey = data.key;
+        this.sceneKey = data.sceneKey
+        this.hasWon = data.hasWon;
     }
 
     create() {
-        this.add.image(600, 290, 'pause-frame');
+        if (this.hasWon) {
+            this.add.image(600, 290, 'win-frame');
 
-        this.restartButton = this.add.image(600, 300, 'restart-button')
-        .setInteractive();
+            this.nextLevelButton = this.add.image(600, 260, 'next-level-button')
+            .setInteractive();
 
-        this.exitButton = this.add.image(600, 400, 'exit-button')
-        .setInteractive();
-        
-        this.restartButton.on('pointerover', () => {
-            this.restartButton.setTexture('restart-button-hover');
-        });
-        this.restartButton.on('pointerdown', () => {
-            this.restartButton.setTexture('restart-button-click');
-        });
-        this.restartButton.on('pointerup', () => {
-            this.scene.start('level-01');
-        });
-        this.restartButton.on('pointerout', () => {
-            this.restartButton.setTexture('restart-button');
-        });
-        
-        this.exitButton.on('pointerover', () => {
-            this.exitButton.setTexture('exit-button-hover');
-        });
-        this.exitButton.on('pointerdown', () => {
-            this.exitButton.setTexture('exit-button-click');
-        });
-        this.exitButton.on('pointerup', () => {
-            this.scene.bringToTop('menu');    
-            this.scene.start('menu');
-        });
-        this.exitButton.on('pointerout', () => {
-            this.exitButton.setTexture('exit-button');
-        });
+            this.restartButton = this.add.image(600, 360, 'restart-button')
+            .setInteractive();
+
+            this.exitButton = this.add.image(600, 460, 'exit-button')
+            .setInteractive();
+            
+            this.nextLevelButton.on('pointerover', () => {
+                this.nextLevelButton.setTexture('next-level-button-hover');
+            });
+            this.nextLevelButton.on('pointerdown', () => {
+                this.nextLevelButton.setTexture('next-level-button-click');
+            });
+            this.nextLevelButton.on('pointerup', () => {
+                this.nextLevelButton.setTexture('next-level-button');
+            });
+            this.nextLevelButton.on('pointerout', () => {
+                this.nextLevelButton.setTexture('next-level-button');
+            });
+            
+            this.restartButton.on('pointerover', () => {
+                this.restartButton.setTexture('restart-button-hover');
+            });
+            this.restartButton.on('pointerdown', () => {
+                this.restartButton.setTexture('restart-button-click');
+            });
+            this.restartButton.on('pointerup', () => {
+                this.restartButton.setTexture('restart-button');
+                this.scene.bringToTop(this.sceneKey);
+                this.scene.start(this.sceneKey);
+            });
+            this.restartButton.on('pointerout', () => {
+                this.restartButton.setTexture('restart-button');
+            });
+            
+            this.exitButton.on('pointerover', () => {
+                this.exitButton.setTexture('exit-button-hover');
+            });
+            this.exitButton.on('pointerdown', () => {
+                this.exitButton.setTexture('exit-button-click');
+            });
+            this.exitButton.on('pointerup', () => {
+                this.restartButton.setTexture('restart-button');
+                this.scene.bringToTop('level-select');    
+                this.scene.start('level-select');
+            });
+            this.exitButton.on('pointerout', () => {
+                this.exitButton.setTexture('exit-button');
+            });
+        }        
+        else {
+            this.add.image(600, 290, 'lose-frame');
+            
+            this.restartButton = this.add.image(600, 250, 'restart-button')
+            .setInteractive();
+
+            this.exitButton = this.add.image(600, 370, 'exit-button')
+            .setInteractive();
+            
+            this.restartButton.on('pointerover', () => {
+                this.restartButton.setTexture('restart-button-hover');
+            });
+            this.restartButton.on('pointerdown', () => {
+                this.restartButton.setTexture('restart-button-click');
+            });
+            this.restartButton.on('pointerup', () => {
+                this.restartButton.setTexture('restart-button');
+                this.scene.bringToTop(this.sceneKey);
+                this.scene.start(this.sceneKey);
+            });
+            this.restartButton.on('pointerout', () => {
+                this.restartButton.setTexture('restart-button');
+            });
+            
+            this.exitButton.on('pointerover', () => {
+                this.exitButton.setTexture('exit-button-hover');
+            });
+            this.exitButton.on('pointerdown', () => {
+                this.exitButton.setTexture('exit-button-click');
+            });
+            this.exitButton.on('pointerup', () => {
+                this.restartButton.setTexture('restart-button');
+                this.scene.bringToTop('level-select');    
+                this.scene.start('level-select');
+            });
+            this.exitButton.on('pointerout', () => {
+                this.exitButton.setTexture('exit-button');
+            });
+        }
     }
 }

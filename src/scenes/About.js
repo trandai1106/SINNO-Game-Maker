@@ -16,6 +16,7 @@ export default class About extends Phaser.Scene {
         this.add.image(600, 270, 'about');
 
         this.backButton = this.add.image(600, 525, 'back-button')
+        .setScale(0.75)
         .setInteractive();
         
         this.backButton.on('pointerover', () => {
@@ -28,6 +29,8 @@ export default class About extends Phaser.Scene {
             this.backButton.setTexture('back-button-click');
         });
         this.backButton.on('pointerup', () => {
+            this.backButton.setTexture('back-button');
+            this.scene.bringToTop('menu');    
             this.scene.start('menu');
         });
     }

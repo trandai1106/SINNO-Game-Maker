@@ -1,6 +1,6 @@
 import Phaser from '../lib/phaser.js';
 
-import Mossy from '../game/Actor.js'
+import Mossy from '../game/Mossy.js'
 import SlimeEnemy from '../game/SlimeEnemies.js';
 import TRex from '../game/TrexEnemies.js';
 import Skeleton from '../game/SkeletonEnemies.js';
@@ -15,15 +15,14 @@ export default class Level01 extends Phaser.Scene {
 
     isStanding
     canShoot = true
-
-    vol = 0.2
+    vol = 0.1
 
     constructor() {
         super("level-01");
     }
     
     init() {
-
+        this.isGameOver = false;
     }
 
     create() {
@@ -50,7 +49,6 @@ export default class Level01 extends Phaser.Scene {
             { gid: 802, key: 'scene-decoration', frame: 'Leaf_3.png' },
             { gid: 803, key: 'scene-decoration', frame: 'Leaf_Half.png' },
             { gid: 804, key: 'scene-decoration', frame: 'Leaf_Small.png' }
-
         ]);
         for (var i = 0; i < layerHanging.length; i++) {
             layerHanging[i].setPipeline('Light2D');
@@ -87,16 +85,12 @@ export default class Level01 extends Phaser.Scene {
         this.slimeEnemy[4].setRangeMove(1200, 1550, 1, 0, 50, 0);
         this.slimeEnemy[5].setRangeMove(4300, 4900, 1, 0, 50, 0);
 
-        // tRex enemies
-
+        // T-Rex enemies
         this.tRexEnemy = new TRex(this, 10800, 400);
         this.tRexEnemy.setRangeMove(10500, 11240, 1, 0, 300, 0);
-
-        // skeleton enemies
-
+        // Skeleton enemies
         this.skeletonEnemy = new Skeleton(this, 14800, 400);
         this.skeletonEnemy.setRangeMove(14700, 14900, 1, 0, 100, 0);
-
         // hoang code end
         
         this.blueFlower2 = this.add.sprite(340, 420, '')
@@ -109,26 +103,6 @@ export default class Level01 extends Phaser.Scene {
         this.lightFlower = this.lights.addLight(360, 390, 500)
         .setColor(0x75d9a5)
         .setIntensity(1);
-
-        // this.slimeOrange = this.add.sprite(70, 340, '')
-        // .setOrigin(0.5)
-        // .setScale(0.3)
-        // .setFlipX(1)
-        // .setPipeline('Light2D');
-        // this.slimeOrange.anims.play('anim-slime-orange', true);
-        // this.lightSlimeOrange = this.lights.addLight(70, 340, 500)
-        // .setColor(0xe6a630)
-        // .setIntensity(1);
-
-        // this.slimeGreen = this.add.sprite(70, 340, '')
-        // .setOrigin(0.5)
-        // .setScale(0.3)
-        // .setFlipX(1)
-        // .setPipeline('Light2D');
-        // this.slimeGreen.anims.play('anim-slime-green', true);
-        // this.lightSlimeGreen = this.lights.addLight(70, 350, 50)
-        // .setColor(0x57e69c)
-        // .setIntensity(1.5);
 
         this.plant3 = this.add.sprite(50, 290, '')
         .setOrigin(0.5)
@@ -171,7 +145,6 @@ export default class Level01 extends Phaser.Scene {
         this.lightFlower = this.lights.addLight(2080, 390, 500)
         .setColor(0x75d9a5)
         .setIntensity(1);
-
         
         this.plant5_2 = this.add.sprite(2450, 440, '')
         .setOrigin(0.5)
@@ -355,34 +328,6 @@ export default class Level01 extends Phaser.Scene {
             }, 100);
         });
 
-        // this.plant8 = this.add.sprite(1090, 460, '')
-        // .setOrigin(0.5)
-        // .setScale(0.3)
-        // .setFlipX(1)
-        // .setPipeline('Light2D');
-        // this.plant8.anims.play('anim-plant-8', true);
-
-        // this.plantWind = this.add.sprite(60, 330, '')
-        // .setOrigin(0.5)
-        // .setScale(0.3)
-        // .setFlipX(1)
-        // .setPipeline('Light2D');
-        // this.plantWind.anims.play('anim-plant-wind', true);
-
-        // this.plantJumpIdle = this.add.sprite(160, 350, '')
-        // .setOrigin(0.5)
-        // .setScale(0.3)
-        // .setFlipX(1)
-        // .setPipeline('Light2D');
-        // this.plantJumpIdle.anims.play('anim-plant-jump-idle', true);
-
-        // this.plantJumpElastic = this.add.sprite(360, 350, '')
-        // .setOrigin(0.5)
-        // .setScale(0.3)
-        // .setFlipX(1)
-        // .setPipeline('Light2D');
-        // this.plantJumpElastic.anims.play('anim-plant-jump-elastic', true);
-
         // Thorn layer
         const layerThorn = map.createFromObjects('Thorn', [
             { gid: 818, key: 'scene-decoration', frame: 'Thorn_1.png' },
@@ -452,7 +397,6 @@ export default class Level01 extends Phaser.Scene {
             layerHill[i].setPipeline('Light2D');
         }
 
-
         // Collider of platforms
         layerGround.forEachTile(tile => {
             if (tile.index == -1) return;
@@ -514,21 +458,6 @@ export default class Level01 extends Phaser.Scene {
                 tile.setCollision(0, 1, 0, 1);
             }
         });
-
-        // Debug mode
-        // const debugGraphics1 = this.add.graphics().setAlpha(0.7);
-        // layerGround.renderDebug(debugGraphics1, {
-        //     tileColor: null,
-        //     collidingTileColor: new Phaser.Display.Color(104, 103, 18, 200),
-        //     faceColor: new Phaser.Display.Color(239, 240, 37, 255)
-        // });
-        // const debugGraphics3 = this.add.graphics().setAlpha(0.7);
-        // layerPlatform.renderDebug(debugGraphics3, {
-        //     tileColor: null,
-        //     collidingTileColor: new Phaser.Display.Color(104, 103, 18, 200),
-        //     faceColor: new Phaser.Display.Color(239, 240, 37, 255)
-        // });
-        // End debug mode
 
         // Set Thorn body collider
         this.thorn_collider_1= this.physics.add.sprite(1110, 520, 'background-03')
@@ -606,10 +535,12 @@ export default class Level01 extends Phaser.Scene {
             this.pauseButton.setTexture('pause-button-click');
         });
         this.pauseButton.on('pointerup', () => {
+            this.pauseButton.setTexture('pause-button');
             this.scene.pause();
-            this.scene.bringToTop('pause');
             this.sound.pauseAll();
+            this.scene.bringToTop('pause');
             this.scene.launch('pause', {
+                sceneKey: 'level-01',
                 playingMusic: !(this.musicButton.texture.key == 'music-button-off')
             });
         });
@@ -679,25 +610,22 @@ export default class Level01 extends Phaser.Scene {
 
         // add overlap
 
+        // Slime
         for (var i = 0; i < this.slimeEnemy.length; i++) {
             this.physics.add.overlap(
                 this.player.weapon,
                 this.slimeEnemy[i],
-                this.killEnemy, // called on overlap
+                this.killEnemy,
                 undefined,
                 this
             );
-        }
-
-        for (var i = 0; i < this.slimeEnemy.length; i++) {
             this.physics.add.overlap(
                 this.slimeEnemy[i],
                 this.player,
                 () => {
-                    // this.slimeEnemy[i].setVelocityX(this.slimeEnemy[i].velocityX)
-                    this.player.isHurt = true
-                    this.player.hurt(2)
-                }, // called on overlap
+                    this.player.isHurt = true;
+                    this.player.hurt(2);
+                },
                 undefined,
                 this.slimeEnemy[i]
             );
@@ -707,7 +635,7 @@ export default class Level01 extends Phaser.Scene {
         this.physics.add.overlap(
             this.player.weapon,
             this.tRexEnemy,
-            this.killEnemy, // called on overlap
+            this.killEnemy,
             undefined,
             this
         );
@@ -742,15 +670,14 @@ export default class Level01 extends Phaser.Scene {
             this.player,
             () => {
                 // if (child.weapon.back == 1) return
-                this.skeletonEnemy.weapon.go = 0
-                this.skeletonEnemy.weapon.back = 0
-                this.skeletonEnemy.weapon.stay = 1
-                this.skeletonEnemy.shootExact = false
-                this.skeletonEnemy.weapon.setStay()
-                this.skeletonEnemy.weapon.setVisible(false)
-                this.skeletonEnemy.weapon.x = this.skeletonEnemy.x
-                this.skeletonEnemy.weapon.y = this.skeletonEnemy.y
-                    // this.skeletonEnemy.goBack(this.skeletonEnemy.x, this.skeletonEnemy.y)
+                this.skeletonEnemy.weapon.go = 0;
+                this.skeletonEnemy.weapon.back = 0;
+                this.skeletonEnemy.weapon.stay = 1;
+                this.skeletonEnemy.shootExact = false;
+                this.skeletonEnemy.weapon.setStay();
+                this.skeletonEnemy.weapon.setVisible(false);
+                this.skeletonEnemy.weapon.x = this.skeletonEnemy.x;
+                this.skeletonEnemy.weapon.y = this.skeletonEnemy.y;
                 this.player.isHurt = true;
                 this.player.hurt(4);
             }, // called on overlap
@@ -770,6 +697,21 @@ export default class Level01 extends Phaser.Scene {
         // Debug map mode
         // this.cameras.main.setZoom(0.5);
 
+        // Debug ground layer and platform layer mode
+        // const debugGraphics1 = this.add.graphics().setAlpha(0.7);
+        // layerGround.renderDebug(debugGraphics1, {
+        //     tileColor: null,
+        //     collidingTileColor: new Phaser.Display.Color(104, 103, 18, 200),
+        //     faceColor: new Phaser.Display.Color(239, 240, 37, 255)
+        // });
+        // const debugGraphics3 = this.add.graphics().setAlpha(0.7);
+        // layerPlatform.renderDebug(debugGraphics3, {
+        //     tileColor: null,
+        //     collidingTileColor: new Phaser.Display.Color(104, 103, 18, 200),
+        //     faceColor: new Phaser.Display.Color(239, 240, 37, 255)
+        // });
+        // End debug mode
+
         // Moving handle
         this.cursors = this.input.keyboard.createCursorKeys();
     }
@@ -782,52 +724,47 @@ export default class Level01 extends Phaser.Scene {
 
         // Player collect weapon when enemy is shooted exactly
         if (this.player.shootExact == true) {
-            this.player.goBack(this.player.x, this.player.y)
+            this.player.goBack(this.player.x, this.player.y);
         }
 
         // Player make shooting
-        this.player.makeShoot(this, this.player.x, this.player.y)
+        this.player.makeShoot(this, this.player.x, this.player.y);
 
-        // update statement of the player and weapon
+        // Update statement of the player and weapon
         this.player._update(this, this.player.x, this.player.y);
 
         for (var i = 0; i < this.slimeEnemy.length; i++) {
             if (!this.slimeEnemy[i].active || this.slimeEnemy[i].health <= 0) continue;
-            if (Math.abs(this.slimeEnemy[i].x - this.player.x) < 1200 && Math.abs(this.slimeEnemy[i].y - this.player.y) < 1200) {
-
+            if (Math.abs(this.slimeEnemy[i].x - this.player.x) < 1200
+            && Math.abs(this.slimeEnemy[i].y - this.player.y) < 1200) {
                 // set enemy light and health bar
-                this.slimeEnemy[i].setLight(this.slimeEnemy[i].x, this.slimeEnemy[i].y)
-
-                this.slimeEnemy[i].stayHealthBar(this.slimeEnemy[i].x, this.slimeEnemy[i].y)
-
+                this.slimeEnemy[i].setLight(this.slimeEnemy[i].x, this.slimeEnemy[i].y);
+                this.slimeEnemy[i].stayHealthBar(this.slimeEnemy[i].x, this.slimeEnemy[i].y);
                 // set the enemy looks player
-                this.slimeEnemy[i].setFace(this.slimeEnemy[i].x, this.player.x)
-
+                this.slimeEnemy[i].setFace(this.slimeEnemy[i].x, this.player.x);
                 // set enemy auto running
-                this.slimeEnemy[i].setMove(this.slimeEnemy[i].x, this.slimeEnemy[i].y)
-
+                this.slimeEnemy[i].setMove(this.slimeEnemy[i].x, this.slimeEnemy[i].y);
             } else {
-                this.slimeEnemy[i].setVelocityX(0)
-                this.slimeEnemy[i].first = 0
+                this.slimeEnemy[i].setVelocityX(0);
+                this.slimeEnemy[i].first = 0;
             }
         }
-        // })
 
-        // set tRexEnemy activities
+        // Set T-Rex activities
         if (this.tRexEnemy.active && this.tRexEnemy.health > 0) {
-            if (Math.abs(this.tRexEnemy.x - this.player.x) < 1200 && Math.abs(this.tRexEnemy.y - this.player.y) < 1200) {
+            if (Math.abs(this.tRexEnemy.x - this.player.x) < 1200 
+            && Math.abs(this.tRexEnemy.y - this.player.y) < 1200) {
                 // set enemy light and health bar
-                this.tRexEnemy.setLight(this.tRexEnemy.x, this.tRexEnemy.y)
-
-                this.tRexEnemy.stayHealthBar(this.tRexEnemy.x, this.tRexEnemy.y)
+                this.tRexEnemy.setLight(this.tRexEnemy.x, this.tRexEnemy.y);
+                this.tRexEnemy.stayHealthBar(this.tRexEnemy.x, this.tRexEnemy.y);
 
                 // set enemy auto running
-                this.tRexEnemy.setMove(this.tRexEnemy.x, this.tRexEnemy.y)
+                this.tRexEnemy.setMove(this.tRexEnemy.x, this.tRexEnemy.y);
 
                 if (Math.abs(this.tRexEnemy.x - this.player.x) < 200) {
-                    this.tRexEnemy.anims.play('anim-t-rex-attack', true)
+                    this.tRexEnemy.anims.play('anim-t-rex-attack', true);
                 } else {
-                    this.tRexEnemy.anims.play('anim-t-rex-walk', true)
+                    this.tRexEnemy.anims.play('anim-t-rex-walk', true);
                 }
             } else {
                 this.tRexEnemy.setVelocityX(0);
@@ -836,49 +773,56 @@ export default class Level01 extends Phaser.Scene {
         }
 
         if (this.skeletonEnemy.active && this.skeletonEnemy.health > 0) {
-            if (Math.abs(this.skeletonEnemy.x - this.player.x) < 1200 && Math.abs(this.skeletonEnemy.y - this.player.y) < 1200) {
-
+            if (Math.abs(this.skeletonEnemy.x - this.player.x) < 1200
+            && Math.abs(this.skeletonEnemy.y - this.player.y) < 1200) {
                 // set enemy light and health bar
-                this.skeletonEnemy.setLight(this.skeletonEnemy.x, this.skeletonEnemy.y)
-
-                this.skeletonEnemy.stayHealthBar(this.skeletonEnemy.x, this.skeletonEnemy.y)
-
-                // set enemy auto running
-                // this.skeletonEnemy.setMove(this.skeletonEnemy.x, this.skeletonEnemy.y)
-
-                this.skeletonEnemy.setFace(this.skeletonEnemy.x, this.player.x)
-
-                this.skeletonEnemy.setMove(this.skeletonEnemy.x, this.skeletonEnemy.y)
-
-                this.skeletonEnemy.makeShoot(this, this.skeletonEnemy.x, this.skeletonEnemy.y, this.player.x, this.player.y)
-                // this.skeletonEnemy.weapon._update(this.skeletonEnemy, this.skeletonEnemy.weapon.x, this.skeletonEnemy.weapon.y)
-                // this.skeletonEnemy.thunder._update(this.skeletonEnemy, this.skeletonEnemy.weapon.x, this.skeletonEnemy.weapon.y)
+                this.skeletonEnemy.setLight(this.skeletonEnemy.x, this.skeletonEnemy.y);
+                this.skeletonEnemy.stayHealthBar(this.skeletonEnemy.x, this.skeletonEnemy.y);
+                this.skeletonEnemy.setFace(this.skeletonEnemy.x, this.player.x);
+                this.skeletonEnemy.setMove(this.skeletonEnemy.x, this.skeletonEnemy.y);
+                this.skeletonEnemy.makeShoot(
+                    this, 
+                    this.skeletonEnemy.x, 
+                    this.skeletonEnemy.y, 
+                    this.player.x, 
+                    this.player.y
+                );
                 if (this.skeletonEnemy.shootThunder == false) {
                     setTimeout(() => {
-                        this.skeletonEnemy.thunder.x = this.player.x
-                        this.skeletonEnemy.thunder.y = this.player.y
-                        this.skeletonEnemy.thunder.setVisible(true)
-                        this.player.isHurt = true;
-                        this.player.hurt(3)
-                        setTimeout(() => {
-                            this.skeletonEnemy.thunder.setVisible(false)
-                        }, 2000);
-                    }, 5000);
-                    setTimeout(() => {
-                        this.skeletonEnemy.shootThunder = true
+                        if (this.player.active && !this.isGameOver) {
+                            this.skeletonEnemy.shootThunder = true;
+                            this.skeletonEnemy.thunder.x = this.player.x;
+                            this.skeletonEnemy.thunder.y = this.player.y;
+                            this.skeletonEnemy.thunder.setVisible(true);
+                            this.player.isHurt = true;
+                            this.player.hurt(3);
+                            setTimeout(() => {
+                                this.skeletonEnemy.thunder.setVisible(false);
+                            }, 2000);
+                        }
                     }, 5000);
                 }
             } else {
-                this.skeletonEnemy.setVelocityX(0)
-                this.skeletonEnemy.first = 0
-                this.skeletonEnemy.shootThunder = false
+                this.skeletonEnemy.setVelocityX(0);
+                this.skeletonEnemy.first = 0;
+                this.skeletonEnemy.shootThunder = false;
             }
         }
 
         if (this.player.health <= 0) {
             if (this.player.active) this.player.anims.play('anim-death', true);
-            this.scene.bringToTop('game-over');    
-            this.scene.start('game-over');
+            if (!this.isGameOver) {
+                this.isGameOver = true;
+                setTimeout(() => {
+                    this.scene.pause();
+                    this.sound.removeAll();
+                    this.scene.bringToTop('game-over');    
+                    this.scene.launch('game-over', {
+                        sceneKey: 'level-01',
+                        hasWon: false
+                    });
+                }, 2000);
+            }
             return;
         }
         if (this.player.isStun) {
@@ -893,7 +837,6 @@ export default class Level01 extends Phaser.Scene {
             this.player.setVelocityX(RUN_SPEED * 3 * direct);
             return;
         }
-
         if (!this.cursors.left.isDown && !this.cursors.right.isDown) {
             if (this.player.isImmortal) this.player.anims.play('anim-mossy-hurt', true);
             else if (this.isStanding) this.player.anims.play('anim-mossy-idle', true);
@@ -911,7 +854,8 @@ export default class Level01 extends Phaser.Scene {
             if (this.player.isImmortal) this.player.anims.play('anim-mossy-hurt', true);
             else if (this.isStanding) this.player.anims.play('anim-mossy-walk', true);
             this.player.flipX = true;
-        } else if (this.cursors.right.isDown) {
+        } 
+        else if (this.cursors.right.isDown) {
             this.player.setVelocityX(RUN_SPEED);
             if (this.player.isImmortal) this.player.anims.play('anim-mossy-hurt', true);
             else if (this.isStanding) this.player.anims.play('anim-mossy-walk', true);
@@ -922,27 +866,31 @@ export default class Level01 extends Phaser.Scene {
 
     // hoang code
 
-    // code call back overlap function
-
+    // Callback function when player shoot enemy
     killEnemy(player, enemy) {
         this.player.weapon.anims.play('anim-fireball-blue-explode');
-        if (this.player.weapon.stay == 1) return
-        enemy.health -= 1
+        if (this.player.weapon.stay == 1) return;
+        enemy.health -= 1;
         if (enemy.health == 0) {
-            this.physics.world.disableBody(enemy.body)
-            enemy.healthBar.setVisible(0)
-            enemy.healthBarBorder.setVisible(0)
+            this.physics.world.disableBody(enemy.body);
+            enemy.healthBar.setVisible(0);
+            enemy.healthBarBorder.setVisible(0);
             enemy.setDestroy();
-            if (SkeletonEnemy.prototype.isPrototypeOf(enemy)) {
+            if (SkeletonEnemy.prototype.isPrototypeOf(enemy) && !this.isGameOver) {
+                this.isGameOver = true;
                 setTimeout(() => {
+                    this.scene.pause();
+                    this.sound.removeAll();
                     this.scene.bringToTop('game-over');    
-                    this.scene.start('game-over');
+                    this.scene.launch('game-over', {
+                        sceneKey: 'level-01',
+                        hasWon: true
+                    });
                 }, 1500);
             }
         }
         this.player.shootExact = true;
         this.player.goBack(this.player.x, this.player.y)
     }
-
     // hoang code end
 }
