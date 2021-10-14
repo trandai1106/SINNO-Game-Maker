@@ -39,8 +39,8 @@ export default class Preload extends Phaser.Scene {
         this.load.image('menu-frame', 'assets/sprites/GUI/menu_frame.png');
         this.load.image('select-level-frame', 'assets/sprites/GUI/select-level_frame.png');
         this.load.image('pause-frame', 'assets/sprites/GUI/pause_frame.png');
-        this.load.image('about', 'assets/sprites/GUI/about.png');
-        this.load.image('health-bar', 'assets/sprites/GUI/health-bar.png');
+        this.load.image('about', 'assets/sprites/GUI/About.png');
+        this.load.image('health-bar', 'assets/sprites/GUI/Health-bar.png');
         this.load.image('pause-button', 'assets/sprites/GUI/Pause.png');
         this.load.image('pause-button-hover', 'assets/sprites/GUI/Pause_hover.png');
         this.load.image('pause-button-click', 'assets/sprites/GUI/Pause_click.png');
@@ -71,9 +71,9 @@ export default class Preload extends Phaser.Scene {
         this.load.image('exit-button', 'assets/sprites/GUI/exit_button.png');
         this.load.image('exit-button-hover', 'assets/sprites/GUI/exit_button_hover.png');
         this.load.image('exit-button-click', 'assets/sprites/GUI/exit_button_click.png');
-        this.load.image('level-01-button', 'assets/sprites/GUI/Level-01.png');
-        this.load.image('level-01-button-hover', 'assets/sprites/GUI/Level-01_hover.png');
-        this.load.image('level-01-button-click', 'assets/sprites/GUI/Level-01_click.png');
+        this.load.image('level-01-button', 'assets/sprites/GUI/level-01.png');
+        this.load.image('level-01-button-hover', 'assets/sprites/GUI/level-01_hover.png');
+        this.load.image('level-01-button-click', 'assets/sprites/GUI/level-01_click.png');
         this.load.image('level-coming-soon-button', 'assets/sprites/GUI/level-coming-soon.png');
         this.load.image('level-coming-soon-button-hover', 'assets/sprites/GUI/level-coming-soon_hover.png');
         this.load.image('level-coming-soon-button-click', 'assets/sprites/GUI/level-coming-soon_click.png');
