@@ -20,9 +20,13 @@ export default class Menu extends Phaser.Scene {
 
         this.add.image(600, 290, 'menu-frame');
 
-        this.playButton = this.add.image(600, 250, 'play-button')
+        this.playButton = this.add.image(600, 210, 'play-button')
         .setInteractive();
-        this.aboutButton = this.add.image(600, 370, 'about-button')
+
+        this.guideButton = this.add.image(600, 310, 'guide-button')
+        .setInteractive();
+
+        this.aboutButton = this.add.image(600, 410, 'about-button')
         .setInteractive();
 
         this.playButton.on('pointerover', () => {
@@ -38,7 +42,23 @@ export default class Menu extends Phaser.Scene {
             this.scene.bringToTop('level-select');    
             this.scene.start('level-select');
         });
+
         
+        this.guideButton.on('pointerover', () => {
+            this.guideButton.setTexture('guide-button-hover');
+        });
+        this.guideButton.on('pointerout', () => {
+            this.guideButton.setTexture('guide-button');
+        });
+        this.guideButton.on('pointerdown', () => {
+            this.guideButton.setTexture('guide-button-click');
+        });
+        this.guideButton.on('pointerup', () => {
+            this.scene.bringToTop('guide');    
+            this.scene.start('guide');
+        });
+
+
         this.aboutButton.on('pointerover', () => {
             this.aboutButton.setTexture('about-button-hover');
         });

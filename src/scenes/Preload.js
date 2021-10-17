@@ -27,7 +27,6 @@ export default class Preload extends Phaser.Scene {
         
         // Music  and sound effect
         this.load.audio('bg-music-01', 'assets/sounds/bg-music-01.ogg');
-        this.load.audio('fighting-music', 'assets/sounds/fighting.ogg');
 
         // Load background
         this.load.image('background-03', 'assets/sprites/Environment/Background/background-03.jpg');
@@ -42,6 +41,7 @@ export default class Preload extends Phaser.Scene {
         this.load.image('win-frame', 'assets/sprites/GUI/win_frame.png');
         this.load.image('lose-frame', 'assets/sprites/GUI/lose_frame.png');
         this.load.image('about', 'assets/sprites/GUI/About.png');
+        this.load.image('guide', 'assets/sprites/GUI/Guide.png');
         this.load.image('health-bar', 'assets/sprites/GUI/Health-bar.png');
         this.load.image('pause-button', 'assets/sprites/GUI/Pause.png');
         this.load.image('pause-button-hover', 'assets/sprites/GUI/Pause_hover.png');
@@ -61,6 +61,9 @@ export default class Preload extends Phaser.Scene {
         this.load.image('about-button', 'assets/sprites/GUI/About_button.png');
         this.load.image('about-button-hover', 'assets/sprites/GUI/About_button_hover.png');
         this.load.image('about-button-click', 'assets/sprites/GUI/About_button_click.png');
+        this.load.image('guide-button', 'assets/sprites/GUI/Guide_button.png');
+        this.load.image('guide-button-hover', 'assets/sprites/GUI/Guide_button_hover.png');
+        this.load.image('guide-button-click', 'assets/sprites/GUI/Guide_button_click.png');
         this.load.image('back-button', 'assets/sprites/GUI/Back_button.png');
         this.load.image('back-button-hover', 'assets/sprites/GUI/Back_button_hover.png');
         this.load.image('back-button-click', 'assets/sprites/GUI/Back_button_click.png');
