@@ -130,7 +130,7 @@ export default class Mossy extends Phaser.Physics.Arcade.Sprite {
 
     _update(scene, x, y) {
         this.setLight(x, y)
-        scene.healthBar.setScale((this.health >= 0 ? this.health : 0) / this.MAX_HEALTH, 1)
+        // scene.healthBar.setScale((this.health >= 0 ? this.health : 0) / this.MAX_HEALTH, 1)
     }
 
     die() {

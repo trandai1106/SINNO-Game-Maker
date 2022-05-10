@@ -435,6 +435,7 @@ export default class Preload extends Phaser.Scene {
             repeat: -1
         });
 
-        this.scene.start('menu');
+        // this.scene.start('menu');
+        this.scene.start('level-1');
     }
 }
