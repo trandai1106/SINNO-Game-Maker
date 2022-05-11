@@ -41,7 +41,7 @@ export default class Level1 extends Phaser.Scene {
         const tileset = map.addTilesetImage('tileset', 'tileset-1');
         
         // Player
-        this.player = new Mossy(this, 270, 200);
+        this.player = new Mossy(this, 1640, 600);
 
         // slime enemies
         // this.slimeEnemy = [];
@@ -663,9 +663,9 @@ export default class Level1 extends Phaser.Scene {
         // hoang code end
 
         // Bound the camera
-        this.cameras.main.setBounds(0, 0, 16000, 580)
+        this.cameras.main.setBounds(0, 0, 16000, 3080)
         .startFollow(this.player)
-        .setDeadzone(this.scale.width * 0.2, this.scale.height * 0.44);
+        .setDeadzone(this.scale.width * 0.2, this.scale.height * 0.35);
         // Fix bug line between tiles of tilemap
         this.cameras.main.roundPixels = true;
 
