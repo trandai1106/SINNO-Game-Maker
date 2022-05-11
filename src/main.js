@@ -11,8 +11,8 @@ import GameOver from './scenes/GameOver.js';
 
 export default new Phaser.Game({
     type: Phaser.AUTO,
-    width: 1200,
-    height: 580,
+    width: 1280,
+    height: 720,
     backgroundColor: '#5fdeb6',
     scene: [
         Preload,

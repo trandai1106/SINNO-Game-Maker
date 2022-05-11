@@ -2,7 +2,7 @@
 import Phaser from '../lib/phaser.js'
 import Weapon from './Weapon.js';
 
-const GRAVITY = 600
+const GRAVITY = 1000
 const MAX_HEALTH = 20
 
 export default class Mossy extends Phaser.Physics.Arcade.Sprite {

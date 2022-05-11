@@ -7,7 +7,7 @@ import Skeleton from '../game/SkeletonEnemies.js';
 import SkeletonEnemy from '../game/SkeletonEnemies.js';
 
 const RUN_SPEED = 200;
-const JUMP_SPEED = 450;
+const JUMP_SPEED = 650;
 const GRAVITY = 600;
 const BULLET_SPEED = 350;
 
@@ -31,7 +31,7 @@ export default class Level1 extends Phaser.Scene {
 
         // Background
         this.bg = this.add.tileSprite(0, 0, 0, 0, 'background-03')
-        .setDisplaySize(1200, 580)
+        .setDisplaySize(1280, 720)
         .setOrigin(0)
         .setScrollFactor(0, 0)
         .setPipeline('Light2D');
@@ -346,29 +346,29 @@ export default class Level1 extends Phaser.Scene {
         .setOrigin(0)
         .setPipeline('Light2D');
         
-        // // Rock layer
-        // const layerRock = map.createFromObjects('Rock', [
-        //     { gid: 811, key: 'scene-decoration', frame: 'Rock_1.png' },
-        //     { gid: 812, key: 'scene-decoration', frame: 'Rock_2.png' },
-        //     { gid: 813, key: 'scene-decoration', frame: 'Rock_3.png' }
-        // ]);
-        // for (var i = 0; i < layerRock.length; i++) {
-        //     layerRock[i].setPipeline('Light2D');
-        // }
+        // Rock layer
+        const layerRock = map.createFromObjects('Rock', [
+            { gid: 811, key: 'scene-decoration', frame: 'Rock_1.png' },
+            { gid: 812, key: 'scene-decoration', frame: 'Rock_2.png' },
+            { gid: 813, key: 'scene-decoration', frame: 'Rock_3.png' }
+        ]);
+        for (var i = 0; i < layerRock.length; i++) {
+            layerRock[i].setPipeline('Light2D');
+        }
         
-        // // Hill layer
-        // const layerHill = map.createFromObjects('Hill', [
-        //     { gid: 797, key: 'scene-decoration', frame: 'Large_Hill_1.png' },
-        //     { gid: 798, key: 'scene-decoration', frame: 'Large_Hill_2.png' },
-        //     { gid: 799, key: 'scene-decoration', frame: 'Large_Hill_3.png' },
-        //     { gid: 814, key: 'scene-decoration', frame: 'Small_Hill_1.png' },
-        //     { gid: 815, key: 'scene-decoration', frame: 'Small_Hill_2.png' },
-        //     { gid: 816, key: 'scene-decoration', frame: 'Small_Hill_3.png' },
-        //     { gid: 817, key: 'scene-decoration', frame: 'Small_Hill_4.png' }
-        // ]);
-        // for (var i = 0; i < layerHill.length; i++) {
-        //     layerHill[i].setPipeline('Light2D');
-        // }
+        // Hill layer
+        const layerHill = map.createFromObjects('Hill', [
+            { gid: 797, key: 'scene-decoration', frame: 'Large_Hill_1.png' },
+            { gid: 798, key: 'scene-decoration', frame: 'Large_Hill_2.png' },
+            { gid: 799, key: 'scene-decoration', frame: 'Large_Hill_3.png' },
+            { gid: 814, key: 'scene-decoration', frame: 'Small_Hill_1.png' },
+            { gid: 815, key: 'scene-decoration', frame: 'Small_Hill_2.png' },
+            { gid: 816, key: 'scene-decoration', frame: 'Small_Hill_3.png' },
+            { gid: 817, key: 'scene-decoration', frame: 'Small_Hill_4.png' }
+        ]);
+        for (var i = 0; i < layerHill.length; i++) {
+            layerHill[i].setPipeline('Light2D');
+        }
 
         // Collider of platforms
         layerGround.forEachTile(tile => {
