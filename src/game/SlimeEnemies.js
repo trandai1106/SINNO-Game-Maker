@@ -34,13 +34,13 @@ export default class SlimeEnemy extends Enemy {
         scene.add.layer(this);
         
         this.body.setSize(120, 80).setOffset(40, 40);
-        this.anims.play('anim-slime-orange');
+        this.anims.play('anim-slime-orange').setPipeline('Light2D');
 
         // add health statement
-        this.healthBar = scene.add.graphics({ x: x - 30, y: y - 80 });
-        this.healthBarBorder = scene.add.graphics({ x: x - 30, y: y - 80 });
-        this.healthBarBorder.lineStyle(1, '#444444', 1);
-        this.healthBarBorder.strokeRect(0, 0, 70, 5);
+        // this.healthBar = scene.add.graphics({ x: x - 30, y: y - 80 });
+        // this.healthBarBorder = scene.add.graphics({ x: x - 30, y: y - 80 });
+        // this.healthBarBorder.lineStyle(1, '#444444', 1);
+        // this.healthBarBorder.strokeRect(0, 0, 70, 5);
     }
 
     setDestroy() {

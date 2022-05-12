@@ -34,6 +34,22 @@ export default class Mossy extends Phaser.Physics.Arcade.Sprite {
         .setColor(0x75d9a5)
         .setIntensity(2);
 
+        // particle system         
+        var particles = scene.add.particles('ps-seed').setPipeline('Light2D');
+        this.movementEffect = scene.add.image(x, y, '').setVisible(false).setPipeline('Light2D');
+        
+        // var emit = particles.createEmitter({
+        //     speed: 0,
+        //     lifespan: { start: 2000, end: 0 },
+        //     alpha: { start: 1, end: 0 },
+        //     scale: { start: 0.1, end: 0 },
+        //     x: 0,
+        //     y: 50,
+        //     quantity: 1,
+        //     blendMode: 'ADD'
+        // });
+        // emit.startFollow(this.movementEffect);
+
         // Add player to physics world
         scene.physics.add.existing(this);
         scene.add.layer(this);
@@ -130,6 +146,8 @@ export default class Mossy extends Phaser.Physics.Arcade.Sprite {
 
     _update(scene, x, y) {
         this.setLight(x, y)
+        this.movementEffect.x = x
+        this.movementEffect.y = y + 30
         // scene.healthBar.setScale((this.health >= 0 ? this.health : 0) / this.MAX_HEALTH, 1)
     }
 

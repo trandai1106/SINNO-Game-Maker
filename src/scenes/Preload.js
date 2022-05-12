@@ -86,6 +86,9 @@ export default class Preload extends Phaser.Scene {
         this.load.image('level-coming-soon-button-hover', 'assets/sprites/GUI/level-coming-soon_hover.png');
         this.load.image('level-coming-soon-button-click', 'assets/sprites/GUI/level-coming-soon_click.png');
 
+        // Particle system
+        this.load.image('ps-seed', 'assets/sprites/Environment/ParticleSystem/particle-system-seed.png');
+
         // Load platform tilemap
         this.load.tilemapTiledJSON('map-01', 'assets/sprites/Environment/MossyTileset/map-01.json');
         
@@ -119,126 +122,126 @@ export default class Preload extends Phaser.Scene {
         });
 
         // Load plant spritesheets
-        this.load.spritesheet('blue-flower-1', 'assets/sprites/Environment/Plant Animations/blue-flower-1.png', {
-            frameWidth: 768,
-            frameHeight: 768
-        });
-        this.load.spritesheet('blue-flower-2', 'assets/sprites/Environment/Plant Animations/blue-flower-2.png', {
-            frameWidth: 768,
-            frameHeight: 768
-        });
-        this.load.spritesheet('plant-2', 'assets/sprites/Environment/Plant Animations/plant-2.png', {
-            frameWidth: 512,
-            frameHeight: 512
-        });
-        this.load.spritesheet('plant-3', 'assets/sprites/Environment/Plant Animations/plant-3.png', {
-            frameWidth: 512,
-            frameHeight: 512
-        });
-        this.load.spritesheet('plant-4', 'assets/sprites/Environment/Plant Animations/plant-4.png', {
-            frameWidth: 512,
-            frameHeight: 512
-        });
-        this.load.spritesheet('plant-5', 'assets/sprites/Environment/Plant Animations/plant-5.png', {
-            frameWidth: 512,
-            frameHeight: 512
-        });
-        this.load.spritesheet('plant-6', 'assets/sprites/Environment/Plant Animations/plant-6.png', {
-            frameWidth: 512,
-            frameHeight: 512
-        });
-        this.load.spritesheet('plant-7', 'assets/sprites/Environment/Plant Animations/plant-7.png', {
-            frameWidth: 512,
-            frameHeight: 512
-        });
+        // this.load.spritesheet('blue-flower-1', 'assets/sprites/Environment/Plant Animations/blue-flower-1.png', {
+        //     frameWidth: 768,
+        //     frameHeight: 768
+        // });
+        // this.load.spritesheet('blue-flower-2', 'assets/sprites/Environment/Plant Animations/blue-flower-2.png', {
+        //     frameWidth: 768,
+        //     frameHeight: 768
+        // });
+        // this.load.spritesheet('plant-2', 'assets/sprites/Environment/Plant Animations/plant-2.png', {
+        //     frameWidth: 512,
+        //     frameHeight: 512
+        // });
+        // this.load.spritesheet('plant-3', 'assets/sprites/Environment/Plant Animations/plant-3.png', {
+        //     frameWidth: 512,
+        //     frameHeight: 512
+        // });
+        // this.load.spritesheet('plant-4', 'assets/sprites/Environment/Plant Animations/plant-4.png', {
+        //     frameWidth: 512,
+        //     frameHeight: 512
+        // });
+        // this.load.spritesheet('plant-5', 'assets/sprites/Environment/Plant Animations/plant-5.png', {
+        //     frameWidth: 512,
+        //     frameHeight: 512
+        // });
+        // this.load.spritesheet('plant-6', 'assets/sprites/Environment/Plant Animations/plant-6.png', {
+        //     frameWidth: 512,
+        //     frameHeight: 512
+        // });
+        // this.load.spritesheet('plant-7', 'assets/sprites/Environment/Plant Animations/plant-7.png', {
+        //     frameWidth: 512,
+        //     frameHeight: 512
+        // });
         this.load.spritesheet('slime-orange', 'assets/sprites/Slimes/slime-orange.png', {
             frameWidth: 204,
             frameHeight: 164
         });
 
-        // Enemy
-        this.load.spritesheet('t-rex-idle', 'assets/sprites/T-Rex/t-rex-idle.png', {
-            frameWidth: 200,
-            frameHeight: 175
-        });
-        this.load.spritesheet('t-rex-walk', 'assets/sprites/T-Rex/t-rex-walk.png', {
-            frameWidth: 200,
-            frameHeight: 175
-        });
-        this.load.spritesheet('t-rex-attack', 'assets/sprites/T-Rex/t-rex-attack.png', {
-            frameWidth: 225,
-            frameHeight: 175
-        });
-        this.load.spritesheet('skeleton-idle', 'assets/sprites/Skeleton Lord/Idle.png', {
-            frameWidth: 167.25,
-            frameHeight: 173
-        });
-        this.load.spritesheet('skeleton-attack', 'assets/sprites/Skeleton Lord/Attack.png', {
-            frameWidth: 183.25,
-            frameHeight: 177
-        });
-        this.load.spritesheet('skeleton-special-attack', 'assets/sprites/Skeleton Lord/SpecialAttack.png', {
-            frameWidth: 180,
-            frameHeight: 186
-        });
-        this.load.spritesheet('skeleton-walk', 'assets/sprites/Skeleton Lord/Walk.png', {
-            frameWidth: 180,
-            frameHeight: 186
-        });
-        this.load.spritesheet('skeleton-run', 'assets/sprites/Skeleton Lord/Run.png', {
-            frameWidth: 200,
-            frameHeight: 172
-        });
-        this.load.spritesheet('skeleton-death', 'assets/sprites/Skeleton Lord/Death.png', {
-            frameWidth: 231.5,
-            frameHeight: 229
-        });
-        this.load.spritesheet('skeleton-dance', 'assets/sprites/Skeleton Lord/Dance.png', {
-            frameWidth: 185,
-            frameHeight: 182.5
-        });
+        // // Enemy
+        // this.load.spritesheet('t-rex-idle', 'assets/sprites/T-Rex/t-rex-idle.png', {
+        //     frameWidth: 200,
+        //     frameHeight: 175
+        // });
+        // this.load.spritesheet('t-rex-walk', 'assets/sprites/T-Rex/t-rex-walk.png', {
+        //     frameWidth: 200,
+        //     frameHeight: 175
+        // });
+        // this.load.spritesheet('t-rex-attack', 'assets/sprites/T-Rex/t-rex-attack.png', {
+        //     frameWidth: 225,
+        //     frameHeight: 175
+        // });
+        // this.load.spritesheet('skeleton-idle', 'assets/sprites/Skeleton Lord/Idle.png', {
+        //     frameWidth: 167.25,
+        //     frameHeight: 173
+        // });
+        // this.load.spritesheet('skeleton-attack', 'assets/sprites/Skeleton Lord/Attack.png', {
+        //     frameWidth: 183.25,
+        //     frameHeight: 177
+        // });
+        // this.load.spritesheet('skeleton-special-attack', 'assets/sprites/Skeleton Lord/SpecialAttack.png', {
+        //     frameWidth: 180,
+        //     frameHeight: 186
+        // });
+        // this.load.spritesheet('skeleton-walk', 'assets/sprites/Skeleton Lord/Walk.png', {
+        //     frameWidth: 180,
+        //     frameHeight: 186
+        // });
+        // this.load.spritesheet('skeleton-run', 'assets/sprites/Skeleton Lord/Run.png', {
+        //     frameWidth: 200,
+        //     frameHeight: 172
+        // });
+        // this.load.spritesheet('skeleton-death', 'assets/sprites/Skeleton Lord/Death.png', {
+        //     frameWidth: 231.5,
+        //     frameHeight: 229
+        // });
+        // this.load.spritesheet('skeleton-dance', 'assets/sprites/Skeleton Lord/Dance.png', {
+        //     frameWidth: 185,
+        //     frameHeight: 182.5
+        // });
 
-        // Spell
-        this.load.spritesheet('fireball-blue', 'assets/sprites/Weapon/fireball_blue.png', {
-            frameWidth: 128,
-            frameHeight: 96
-        });
-        this.load.spritesheet('fireball-blue-explode', 'assets/sprites/Weapon/fireball_blue_explode.png', {
-            frameWidth: 128,
-            frameHeight: 96
-        });
-        this.load.spritesheet('flame', 'assets/sprites/Skeleton Lord/Flame.png', {
-            frameWidth: 160,
-            frameHeight: 53
-        });
-        this.load.spritesheet('heal', 'assets/sprites/Effect/heal.png', {
-            frameWidth: 192,
-            frameHeight: 192
-        });
-        this.load.spritesheet('death', 'assets/sprites/Effect/death.png', {
-            frameWidth: 192,
-            frameHeight: 192
-        });
-        this.load.spritesheet('shield', 'assets/sprites/Effect/shield.png', {
-            frameWidth: 192,
-            frameHeight: 192
-        });
-        this.load.spritesheet('smoke', 'assets/sprites/Effect/smoke.png', {
-            frameWidth: 512,
-            frameHeight: 512
-        });
-        this.load.spritesheet('skull-smoke-green', 'assets/sprites/Effect/skull_smoke_green.png', {
-            frameWidth: 96,
-            frameHeight: 128
-        });
-        this.load.spritesheet('sphere-blue', 'assets/sprites/Effect/sphere_blue.png', {
-            frameWidth: 128,
-            frameHeight: 128
-        });
-        this.load.spritesheet('thunder', 'assets/sprites/Skeleton Lord/Thunder.png', {
-            frameWidth: 140,
-            frameHeight: 235
-        });
+        // // Spell
+        // this.load.spritesheet('fireball-blue', 'assets/sprites/Weapon/fireball_blue.png', {
+        //     frameWidth: 128,
+        //     frameHeight: 96
+        // });
+        // this.load.spritesheet('fireball-blue-explode', 'assets/sprites/Weapon/fireball_blue_explode.png', {
+        //     frameWidth: 128,
+        //     frameHeight: 96
+        // });
+        // this.load.spritesheet('flame', 'assets/sprites/Skeleton Lord/Flame.png', {
+        //     frameWidth: 160,
+        //     frameHeight: 53
+        // });
+        // this.load.spritesheet('heal', 'assets/sprites/Effect/heal.png', {
+        //     frameWidth: 192,
+        //     frameHeight: 192
+        // });
+        // this.load.spritesheet('death', 'assets/sprites/Effect/death.png', {
+        //     frameWidth: 192,
+        //     frameHeight: 192
+        // });
+        // this.load.spritesheet('shield', 'assets/sprites/Effect/shield.png', {
+        //     frameWidth: 192,
+        //     frameHeight: 192
+        // });
+        // this.load.spritesheet('smoke', 'assets/sprites/Effect/smoke.png', {
+        //     frameWidth: 512,
+        //     frameHeight: 512
+        // });
+        // this.load.spritesheet('skull-smoke-green', 'assets/sprites/Effect/skull_smoke_green.png', {
+        //     frameWidth: 96,
+        //     frameHeight: 128
+        // });
+        // this.load.spritesheet('sphere-blue', 'assets/sprites/Effect/sphere_blue.png', {
+        //     frameWidth: 128,
+        //     frameHeight: 128
+        // });
+        // this.load.spritesheet('thunder', 'assets/sprites/Skeleton Lord/Thunder.png', {
+        //     frameWidth: 140,
+        //     frameHeight: 235
+        // });
         
         // Loading statement
         this.load.on('progress', (val) => {
@@ -280,160 +283,160 @@ export default class Preload extends Phaser.Scene {
         });
 
         // Plant animations
-        this.anims.create({ key: "anim-blue-flower-1",
-            frameRate: 16,
-            frames: this.anims.generateFrameNumbers("blue-flower-1", { start: 0, end: 59 }),
-            repeat: -1
-        });
-        this.anims.create({ key: "anim-blue-flower-2",
-            frameRate: 18,
-            frames: this.anims.generateFrameNumbers("blue-flower-2", { start: 0, end: 59 }),
-            repeat: -1
-        });
-        // this.anims.create({ key: "anim-plant-1",
-        //     frameRate: 18,
-        //     frames: this.anims.generateFrameNumbers("plant-1", { start: 0, end: 89 }),
+        // this.anims.create({ key: "anim-blue-flower-1",
+        //     frameRate: 16,
+        //     frames: this.anims.generateFrameNumbers("blue-flower-1", { start: 0, end: 59 }),
         //     repeat: -1
         // });
-        this.anims.create({ key: "anim-plant-2",
-            frameRate: 20,
-            frames: this.anims.generateFrameNumbers("plant-2", { start: 0, end: 89 }),
-            repeat: -1
-        });
-        this.anims.create({ key: "anim-plant-3",
-            frameRate: 20,
-            frames: this.anims.generateFrameNumbers("plant-3", { start: 0, end: 89 }),
-            repeat: -1
-        });
-        this.anims.create({ key: "anim-plant-4",
-            frameRate: 16,
-            frames: this.anims.generateFrameNumbers("plant-4", { start: 0, end: 59 }),
-            repeat: -1
-        });
-        this.anims.create({ key: "anim-plant-5",
-            frameRate: 16,
-            frames: this.anims.generateFrameNumbers("plant-5", { start: 0, end: 59 }),
-            repeat: -1
-        });
-        this.anims.create({ key: "anim-plant-6",
-            frameRate: 16,
-            frames: this.anims.generateFrameNumbers("plant-6", { start: 0, end: 59 }),
-            repeat: -1
-        });
-        this.anims.create({ key: "anim-plant-7",
-            frameRate: 16,
-            frames: this.anims.generateFrameNumbers("plant-7", { start: 0, end: 59 }),
-            repeat: -1
-        });
+        // this.anims.create({ key: "anim-blue-flower-2",
+        //     frameRate: 18,
+        //     frames: this.anims.generateFrameNumbers("blue-flower-2", { start: 0, end: 59 }),
+        //     repeat: -1
+        // });
+        // // this.anims.create({ key: "anim-plant-1",
+        // //     frameRate: 18,
+        // //     frames: this.anims.generateFrameNumbers("plant-1", { start: 0, end: 89 }),
+        // //     repeat: -1
+        // // });
+        // this.anims.create({ key: "anim-plant-2",
+        //     frameRate: 20,
+        //     frames: this.anims.generateFrameNumbers("plant-2", { start: 0, end: 89 }),
+        //     repeat: -1
+        // });
+        // this.anims.create({ key: "anim-plant-3",
+        //     frameRate: 20,
+        //     frames: this.anims.generateFrameNumbers("plant-3", { start: 0, end: 89 }),
+        //     repeat: -1
+        // });
+        // this.anims.create({ key: "anim-plant-4",
+        //     frameRate: 16,
+        //     frames: this.anims.generateFrameNumbers("plant-4", { start: 0, end: 59 }),
+        //     repeat: -1
+        // });
+        // this.anims.create({ key: "anim-plant-5",
+        //     frameRate: 16,
+        //     frames: this.anims.generateFrameNumbers("plant-5", { start: 0, end: 59 }),
+        //     repeat: -1
+        // });
+        // this.anims.create({ key: "anim-plant-6",
+        //     frameRate: 16,
+        //     frames: this.anims.generateFrameNumbers("plant-6", { start: 0, end: 59 }),
+        //     repeat: -1
+        // });
+        // this.anims.create({ key: "anim-plant-7",
+        //     frameRate: 16,
+        //     frames: this.anims.generateFrameNumbers("plant-7", { start: 0, end: 59 }),
+        //     repeat: -1
+        // });
         this.anims.create({ key: "anim-slime-orange",
             frameRate: 12,
             frames: this.anims.generateFrameNumbers("slime-orange", { start: 0, end: 29 }),
             repeat: -1
         });
 
-        // Enemy
-        this.anims.create({ key: "anim-t-rex-idle",
-            frameRate: 12,
-            frames: this.anims.generateFrameNumbers("t-rex-idle", { start: 0, end: 11 }),
-            repeat: -1
-        });
-        this.anims.create({ key: "anim-t-rex-walk",
-            frameRate: 14,
-            frames: this.anims.generateFrameNumbers("t-rex-walk", { start: 0, end: 11 }),
-            repeat: -1
-        });
-        this.anims.create({ key: "anim-t-rex-attack",
-            frameRate: 12,
-            frames: this.anims.generateFrameNumbers("t-rex-attack", { start: 0, end: 11 }),
-            repeat: -1
-        });
-        this.anims.create({ key: "anim-skeleton-idle",
-            frameRate: 7,
-            frames: this.anims.generateFrameNumbers("skeleton-idle", { start: 0, end: 6 }),
-            repeat: -1
-        });
-        this.anims.create({ key: "anim-skeleton-attack",
-            frameRate: 12,
-            frames: this.anims.generateFrameNumbers("skeleton-attack", { start: 0, end: 6 }),
-            repeat: -1
-        });
-        this.anims.create({ key: "anim-skeleton-special-attack",
-            frameRate: 6,
-            frames: this.anims.generateFrameNumbers("skeleton-special-attack", { start: 0, end: 10 }),
-            repeat: -1
-        });
-        this.anims.create({ key: "anim-skeleton-walk",
-            frameRate: 6,
-            frames: this.anims.generateFrameNumbers("skeleton-walk", { start: 0, end: 6 }),
-            repeat: -1
-        });
-        this.anims.create({ key: "anim-skeleton-run",
-            frameRate: 6,
-            frames: this.anims.generateFrameNumbers("skeleton-run", { start: 0, end: 6 }),
-            repeat: -1
-        });
-        this.anims.create({ key: "anim-skeleton-dance",
-            frameRate: 6,
-            frames: this.anims.generateFrameNumbers("skeleton-dance", { start: 0, end: 9 }),
-            repeat: -1
-        });
-        this.anims.create({ key: "anim-skeleton-death",
-            frameRate: 6,
-            frames: this.anims.generateFrameNumbers("skeleton-death", { start: 0, end: 8 }),
-            repeat: -1
-        });
+        // // Enemy
+        // this.anims.create({ key: "anim-t-rex-idle",
+        //     frameRate: 12,
+        //     frames: this.anims.generateFrameNumbers("t-rex-idle", { start: 0, end: 11 }),
+        //     repeat: -1
+        // });
+        // this.anims.create({ key: "anim-t-rex-walk",
+        //     frameRate: 14,
+        //     frames: this.anims.generateFrameNumbers("t-rex-walk", { start: 0, end: 11 }),
+        //     repeat: -1
+        // });
+        // this.anims.create({ key: "anim-t-rex-attack",
+        //     frameRate: 12,
+        //     frames: this.anims.generateFrameNumbers("t-rex-attack", { start: 0, end: 11 }),
+        //     repeat: -1
+        // });
+        // this.anims.create({ key: "anim-skeleton-idle",
+        //     frameRate: 7,
+        //     frames: this.anims.generateFrameNumbers("skeleton-idle", { start: 0, end: 6 }),
+        //     repeat: -1
+        // });
+        // this.anims.create({ key: "anim-skeleton-attack",
+        //     frameRate: 12,
+        //     frames: this.anims.generateFrameNumbers("skeleton-attack", { start: 0, end: 6 }),
+        //     repeat: -1
+        // });
+        // this.anims.create({ key: "anim-skeleton-special-attack",
+        //     frameRate: 6,
+        //     frames: this.anims.generateFrameNumbers("skeleton-special-attack", { start: 0, end: 10 }),
+        //     repeat: -1
+        // });
+        // this.anims.create({ key: "anim-skeleton-walk",
+        //     frameRate: 6,
+        //     frames: this.anims.generateFrameNumbers("skeleton-walk", { start: 0, end: 6 }),
+        //     repeat: -1
+        // });
+        // this.anims.create({ key: "anim-skeleton-run",
+        //     frameRate: 6,
+        //     frames: this.anims.generateFrameNumbers("skeleton-run", { start: 0, end: 6 }),
+        //     repeat: -1
+        // });
+        // this.anims.create({ key: "anim-skeleton-dance",
+        //     frameRate: 6,
+        //     frames: this.anims.generateFrameNumbers("skeleton-dance", { start: 0, end: 9 }),
+        //     repeat: -1
+        // });
+        // this.anims.create({ key: "anim-skeleton-death",
+        //     frameRate: 6,
+        //     frames: this.anims.generateFrameNumbers("skeleton-death", { start: 0, end: 8 }),
+        //     repeat: -1
+        // });
 
-        // Spell
-        this.anims.create({ key: "anim-fireball-blue",
-            frameRate: 30,
-            frames: this.anims.generateFrameNumbers("fireball-blue", { start: 0, end: 35 }),
-            repeat: -1
-        });
-        this.anims.create({ key: "anim-fireball-blue-explode",
-            frameRate: 15,
-            frames: this.anims.generateFrameNumbers("fireball-blue-explode", { start: 0, end: 3 }),
-            repeat: -1
-        });
-        this.anims.create({ key: "anim-flame",
-            frameRate: 18,
-            frames: this.anims.generateFrameNumbers("flame", { start: 0, end: 7 }),
-            repeat: -1
-        });
-        this.anims.create({ key: "anim-heal",
-            frameRate: 15,
-            frames: this.anims.generateFrameNumbers("heal", { start: 0, end: 14 }),
-            repeat: 0
-        });
-        this.anims.create({ key: "anim-death",
-            frameRate: 12,
-            frames: this.anims.generateFrameNumbers("death", { start: 0, end: 19 }),
-            repeat: 0
-        });
-        this.anims.create({ key: "anim-shield",
-            frameRate: 15,
-            frames: this.anims.generateFrameNumbers("shield", { start: 0, end: 14 }),
-            repeat: 0
-        });
-        this.anims.create({ key: "anim-smoke",
-            frameRate: 30,
-            frames: this.anims.generateFrameNumbers("smoke", { start: 0, end: 87 }),
-            repeat: 0
-        });
-        this.anims.create({ key: "anim-skull-smoke-green",
-            frameRate: 30,
-            frames: this.anims.generateFrameNumbers("skull-smoke-green", { start: 0, end: 37 }),
-            repeat: 0
-        });
-        this.anims.create({ key: "anim-sphere-blue",
-            frameRate: 20,
-            frames: this.anims.generateFrameNumbers("sphere-blue", { start: 0, end: 29 }),
-            repeat: 0
-        });
-        this.anims.create({ key: "anim-thunder",
-            frameRate: 18,
-            frames: this.anims.generateFrameNumbers("thunder", { start: 0, end: 7 }),
-            repeat: -1
-        });
+        // // Spell
+        // this.anims.create({ key: "anim-fireball-blue",
+        //     frameRate: 30,
+        //     frames: this.anims.generateFrameNumbers("fireball-blue", { start: 0, end: 35 }),
+        //     repeat: -1
+        // });
+        // this.anims.create({ key: "anim-fireball-blue-explode",
+        //     frameRate: 15,
+        //     frames: this.anims.generateFrameNumbers("fireball-blue-explode", { start: 0, end: 3 }),
+        //     repeat: -1
+        // });
+        // this.anims.create({ key: "anim-flame",
+        //     frameRate: 18,
+        //     frames: this.anims.generateFrameNumbers("flame", { start: 0, end: 7 }),
+        //     repeat: -1
+        // });
+        // this.anims.create({ key: "anim-heal",
+        //     frameRate: 15,
+        //     frames: this.anims.generateFrameNumbers("heal", { start: 0, end: 14 }),
+        //     repeat: 0
+        // });
+        // this.anims.create({ key: "anim-death",
+        //     frameRate: 12,
+        //     frames: this.anims.generateFrameNumbers("death", { start: 0, end: 19 }),
+        //     repeat: 0
+        // });
+        // this.anims.create({ key: "anim-shield",
+        //     frameRate: 15,
+        //     frames: this.anims.generateFrameNumbers("shield", { start: 0, end: 14 }),
+        //     repeat: 0
+        // });
+        // this.anims.create({ key: "anim-smoke",
+        //     frameRate: 30,
+        //     frames: this.anims.generateFrameNumbers("smoke", { start: 0, end: 87 }),
+        //     repeat: 0
+        // });
+        // this.anims.create({ key: "anim-skull-smoke-green",
+        //     frameRate: 30,
+        //     frames: this.anims.generateFrameNumbers("skull-smoke-green", { start: 0, end: 37 }),
+        //     repeat: 0
+        // });
+        // this.anims.create({ key: "anim-sphere-blue",
+        //     frameRate: 20,
+        //     frames: this.anims.generateFrameNumbers("sphere-blue", { start: 0, end: 29 }),
+        //     repeat: 0
+        // });
+        // this.anims.create({ key: "anim-thunder",
+        //     frameRate: 18,
+        //     frames: this.anims.generateFrameNumbers("thunder", { start: 0, end: 7 }),
+        //     repeat: -1
+        // });
 
         // this.scene.start('menu');
         this.scene.start('level-1');

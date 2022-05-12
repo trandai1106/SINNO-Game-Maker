@@ -41,17 +41,45 @@ export default class Level1 extends Phaser.Scene {
         const tileset = map.addTilesetImage('tileset', 'tileset-1');
         
         // Player
-        this.player = new Mossy(this, 1640, 600);
+
+        this.player = new Mossy(this, 1200, 600);
+
+        // light
+        var light = this.lights.addLight(1200, 600, 40)
+        .setColor(0x75d9a5)
+        .setIntensity(2);
+
+        var tween = this.tweens.add({
+            targets: light,
+            duration: 2500,
+            loop: -1,
+            yoyo: true,
+            scale: {from: 1, to: 5},
+            x: {from: 1200, to: 1250},
+            y: {from: 600, to: 630},
+            onYoyo: function () { console.log('onYoyo'); }
+        });
+
+        
+        // thorn
+        // this.__thorn1 = this.add.image(1200, 800, 'scene-decoration', 'Thorn_1.png').setPipeline('Light2D');
+        // this.__thorn2 = this.add.image(1300, 800, 'scene-decoration', 'Thorn_2.png').setPipeline('Light2D');
+        this.__thorn3 = this.add.image(2500, 950, 'scene-decoration', 'Thorn_3.png').setPipeline('Light2D');
+        this.__thorn4 = this.add.image(2600, 950, 'scene-decoration', 'Thorn_3.png').setPipeline('Light2D');
+        this.__flower1 = this.add.image(1800, 800, 'scene-decoration', 'Moss_6.png').setPipeline('Light2D');
+        this.__flower2 = this.add.image(1900, 800, 'scene-decoration', 'Moss_5.png').setPipeline('Light2D');
 
         // slime enemies
-        // this.slimeEnemy = [];
+        this.slimeEnemy = [];
+        // this.__slime = this.add.sprite(1200, 920, '').setPipeline('Light2D');;
+        // this.__slime.anims.play('anim-slime-orange');
         // this.slimeEnemy.push(new SlimeEnemy(this, 6580, 400));
         // this.slimeEnemy.push(new SlimeEnemy(this, 7000, 400));
         // this.slimeEnemy.push(new SlimeEnemy(this, 2600, 400));
         // this.slimeEnemy.push(new SlimeEnemy(this, 1800, 280));
         // this.slimeEnemy.push(new SlimeEnemy(this, 1200, 400));
         // this.slimeEnemy.push(new SlimeEnemy(this, 4600, 400));
-        // this.slimeEnemy[0].setRangeMove(6286, 6900, 1, 0, 50, 0);
+        // this.slimeEnemy[0].setRangeMove(1286, 600, 1, 0, 50, 0);
         // this.slimeEnemy[1].setRangeMove(6730, 7300, 1, 0, -50, 0);
         // this.slimeEnemy[2].setRangeMove(2350, 2850, 1, 0, 50, 0);
         // this.slimeEnemy[3].setRangeMove(1600, 1980, 1, 0, -50, 0);
@@ -436,12 +464,14 @@ export default class Level1 extends Phaser.Scene {
         this.map_collider_1 = this.physics.add.sprite(0, 290, 'back-button')
         .setSize(10, 600)
         .setVisible(0)
-        .setImmovable(1);
+        .setImmovable(1)
+        .setPipeline('Light2D');
         this.physics.add.collider(this.player, this.map_collider_1);
         this.map_collider_2 = this.physics.add.sprite(16000, 290, 'back-button')
         .setSize(10, 600)
         .setVisible(0)
-        .setImmovable(1);
+        .setImmovable(1)
+        .setPipeline('Light2D');
         this.physics.add.collider(this.player, this.map_collider_2);
 
         // Set Thorn body collider
@@ -499,68 +529,68 @@ export default class Level1 extends Phaser.Scene {
         // .setOrigin(0, 0.5)
         // .setScrollFactor(0);
         // Button 
-        this.pauseButton = this.add.image(1194, 6, 'pause-button')
-        .setScrollFactor(0)
-        .setOrigin(1, 0);
-        this.pauseButton.setInteractive();
-        this.pauseButton.on('pointerover', () => {
-            this.pauseButton.setTexture('pause-button-hover');
-        });
-        this.pauseButton.on('pointerdown', () => {
-            this.pauseButton.setTexture('pause-button-click');
-        });
-        this.pauseButton.on('pointerup', () => {
-            this.pauseButton.setTexture('pause-button');
-            this.scene.pause();
-            this.sound.pauseAll();
-            this.scene.bringToTop('pause');
-            this.scene.launch('pause', {
-                sceneKey: 'level-01',
-                playingMusic: !(this.musicButton.texture.key == 'music-button-off')
-            });
-        });
-        this.pauseButton.on('pointerout', () => {
-            this.pauseButton.setTexture('pause-button');
-        });
+        // this.pauseButton = this.add.image(1194, 6, 'pause-button')
+        // .setScrollFactor(0)
+        // .setOrigin(1, 0);
+        // this.pauseButton.setInteractive();
+        // this.pauseButton.on('pointerover', () => {
+        //     this.pauseButton.setTexture('pause-button-hover');
+        // });
+        // this.pauseButton.on('pointerdown', () => {
+        //     this.pauseButton.setTexture('pause-button-click');
+        // });
+        // this.pauseButton.on('pointerup', () => {
+        //     this.pauseButton.setTexture('pause-button');
+        //     this.scene.pause();
+        //     this.sound.pauseAll();
+        //     this.scene.bringToTop('pause');
+        //     this.scene.launch('pause', {
+        //         sceneKey: 'level-01',
+        //         playingMusic: !(this.musicButton.texture.key == 'music-button-off')
+        //     });
+        // });
+        // this.pauseButton.on('pointerout', () => {
+        //     this.pauseButton.setTexture('pause-button');
+        // });
         
-        this.musicButton = this.add.image(1118, 6, 'music-button')
-        .setScrollFactor(0)
-        .setOrigin(1, 0);
-        this.musicButton.setInteractive();
-        this.musicButton.on('pointerover', () => {
-            if (this.musicButton.texture.key == 'music-button') {
-                this.musicButton.setTexture('music-button-hover');
-            }
-            else if (this.musicButton.texture.key == 'music-button-off') {
-                this.musicButton.setTexture('music-button-off-hover');
-            }
-        });
-        this.musicButton.on('pointerdown', () => {
-            if (this.musicButton.texture.key == 'music-button-hover') {   
-                this.musicButton.setTexture('music-button-click');
-            }
-            else if (this.musicButton.texture.key == 'music-button-off-hover') {   
-                this.musicButton.setTexture('music-button-off-click');
-            }
-        });
-        this.musicButton.on('pointerup', () => {
-            if (this.musicButton.texture.key == 'music-button-click') {
-                this.sound.pauseAll();
-                this.musicButton.setTexture('music-button-off');
-            }
-            else if (this.musicButton.texture.key == 'music-button-off-click') {
-                this.sound.resumeAll();
-                this.musicButton.setTexture('music-button');
-            }
-        });
-        this.musicButton.on('pointerout', () => {
-            if (this.musicButton.texture.key == 'music-button-hover') {
-                this.musicButton.setTexture('music-button');
-            }
-            else if (this.musicButton.texture.key == 'music-button-off-hover') {
-                this.musicButton.setTexture('music-button-off');
-            }
-        });
+        // this.musicButton = this.add.image(1118, 6, 'music-button')
+        // .setScrollFactor(0)
+        // .setOrigin(1, 0);
+        // this.musicButton.setInteractive();
+        // this.musicButton.on('pointerover', () => {
+        //     if (this.musicButton.texture.key == 'music-button') {
+        //         this.musicButton.setTexture('music-button-hover');
+        //     }
+        //     else if (this.musicButton.texture.key == 'music-button-off') {
+        //         this.musicButton.setTexture('music-button-off-hover');
+        //     }
+        // });
+        // this.musicButton.on('pointerdown', () => {
+        //     if (this.musicButton.texture.key == 'music-button-hover') {   
+        //         this.musicButton.setTexture('music-button-click');
+        //     }
+        //     else if (this.musicButton.texture.key == 'music-button-off-hover') {   
+        //         this.musicButton.setTexture('music-button-off-click');
+        //     }
+        // });
+        // this.musicButton.on('pointerup', () => {
+        //     if (this.musicButton.texture.key == 'music-button-click') {
+        //         this.sound.pauseAll();
+        //         this.musicButton.setTexture('music-button-off');
+        //     }
+        //     else if (this.musicButton.texture.key == 'music-button-off-click') {
+        //         this.sound.resumeAll();
+        //         this.musicButton.setTexture('music-button');
+        //     }
+        // });
+        // this.musicButton.on('pointerout', () => {
+        //     if (this.musicButton.texture.key == 'music-button-hover') {
+        //         this.musicButton.setTexture('music-button');
+        //     }
+        //     else if (this.musicButton.texture.key == 'music-button-off-hover') {
+        //         this.musicButton.setTexture('music-button-off');
+        //     }
+        // });
 
         // Physical collision detection
         // Player
@@ -842,30 +872,30 @@ export default class Level1 extends Phaser.Scene {
     // hoang code
 
     // Callback function when player shoot enemy
-    killEnemy(player, enemy) {
-        this.player.weapon.anims.play('anim-fireball-blue-explode');
-        if (this.player.weapon.stay == 1) return;
-        enemy.health -= 1;
-        if (enemy.health == 0) {
-            this.physics.world.disableBody(enemy.body);
-            enemy.healthBar.setVisible(0);
-            enemy.healthBarBorder.setVisible(0);
-            enemy.setDestroy();
-            if (SkeletonEnemy.prototype.isPrototypeOf(enemy) && !this.isGameOver) {
-                this.isGameOver = true;
-                setTimeout(() => {
-                    this.scene.pause();
-                    this.sound.removeAll();
-                    this.scene.bringToTop('game-over');    
-                    this.scene.launch('game-over', {
-                        sceneKey: 'level-01',
-                        hasWon: true
-                    });
-                }, 1500);
-            }
-        }
-        this.player.shootExact = true;
-        this.player.goBack(this.player.x, this.player.y)
-    }
+    // killEnemy(player, enemy) {
+    //     this.player.weapon.anims.play('anim-fireball-blue-explode');
+    //     if (this.player.weapon.stay == 1) return;
+    //     enemy.health -= 1;
+    //     if (enemy.health == 0) {
+    //         this.physics.world.disableBody(enemy.body);
+    //         enemy.healthBar.setVisible(0);
+    //         enemy.healthBarBorder.setVisible(0);
+    //         enemy.setDestroy();
+    //         if (SkeletonEnemy.prototype.isPrototypeOf(enemy) && !this.isGameOver) {
+    //             this.isGameOver = true;
+    //             setTimeout(() => {
+    //                 this.scene.pause();
+    //                 this.sound.removeAll();
+    //                 this.scene.bringToTop('game-over');    
+    //                 this.scene.launch('game-over', {
+    //                     sceneKey: 'level-01',
+    //                     hasWon: true
+    //                 });
+    //             }, 1500);
+    //         }
+    //     }
+    //     this.player.shootExact = true;
+    //     this.player.goBack(this.player.x, this.player.y)
+    // }
     // hoang code end
 }
