@@ -154,9 +154,13 @@ export default class Preload extends Phaser.Scene {
         //     frameWidth: 512,
         //     frameHeight: 512
         // });
-        this.load.spritesheet('slime-orange', 'assets/sprites/Slimes/slime-orange.png', {
-            frameWidth: 204,
-            frameHeight: 164
+        this.load.spritesheet('plant-jump-idle', 'assets/sprites/Environment/Plant Animations/plant-jump-idle.png', {
+            frameWidth: 512,
+            frameHeight: 512
+        });
+        this.load.spritesheet('plant-jump-elastic', 'assets/sprites/Environment/Plant Animations/plant-jump-elastic.png', {
+            frameWidth: 512,
+            frameHeight: 512
         });
 
         // // Enemy
@@ -328,6 +332,17 @@ export default class Preload extends Phaser.Scene {
         //     frames: this.anims.generateFrameNumbers("plant-7", { start: 0, end: 59 }),
         //     repeat: -1
         // });
+        this.anims.create({ key: "anim-plant-jump-idle",
+            frameRate: 8,
+            frames: this.anims.generateFrameNumbers("plant-jump-idle", { start: 0, end: 19 }),
+            repeat: -1
+        });
+        this.anims.create({ key: "anim-plant-jump-elastic",
+            frameRate: 20,
+            frames: this.anims.generateFrameNumbers("plant-jump-elastic", { start: 0, end: 19 }),
+            repeat: 0
+        });
+        
         this.anims.create({ key: "anim-slime-orange",
             frameRate: 12,
             frames: this.anims.generateFrameNumbers("slime-orange", { start: 0, end: 29 }),

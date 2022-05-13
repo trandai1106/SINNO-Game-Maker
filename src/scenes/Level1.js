@@ -1,12 +1,14 @@
 import Phaser from '../lib/phaser.js';
 
 import Mossy from '../game/Mossy.js'
+import Thorn from '../game/Thorn.js'
+import Elastic from '../game/Elastic.js'
 import SlimeEnemy from '../game/SlimeEnemies.js';
 import TRex from '../game/TrexEnemies.js';
 import Skeleton from '../game/SkeletonEnemies.js';
 import SkeletonEnemy from '../game/SkeletonEnemies.js';
 
-const RUN_SPEED = 200;
+const RUN_SPEED = 300;
 const JUMP_SPEED = 650;
 const GRAVITY = 600;
 const BULLET_SPEED = 350;
@@ -42,30 +44,55 @@ export default class Level1 extends Phaser.Scene {
         
         // Player
 
-        this.player = new Mossy(this, 1200, 600);
+        this.player = new Mossy(this, 2300, 800);
 
         // light
         var light = this.lights.addLight(1200, 600, 40)
         .setColor(0x75d9a5)
         .setIntensity(2);
-
+        light.rate = 1;
         var tween = this.tweens.add({
             targets: light,
             duration: 2500,
             loop: -1,
             yoyo: true,
-            scale: {from: 1, to: 5},
             x: {from: 1200, to: 1250},
             y: {from: 600, to: 630},
-            onYoyo: function () { console.log('onYoyo'); }
+            onYoyo: function () { 
+                // console.log('onYoyo'); 
+                light.rate *= -1;
+            },
+            onUpdate: function () { 
+                // console.log('onUpdate'); 
+                light.radius += light.rate;
+            }
         });
 
         
         // thorn
         // this.__thorn1 = this.add.image(1200, 800, 'scene-decoration', 'Thorn_1.png').setPipeline('Light2D');
         // this.__thorn2 = this.add.image(1300, 800, 'scene-decoration', 'Thorn_2.png').setPipeline('Light2D');
-        this.__thorn3 = this.add.image(2500, 950, 'scene-decoration', 'Thorn_3.png').setPipeline('Light2D');
-        this.__thorn4 = this.add.image(2600, 950, 'scene-decoration', 'Thorn_3.png').setPipeline('Light2D');
+        this.__thorn3 = new Thorn(this, 2500, 950, 'scene-decoration', 'Thorn_3.png');
+        this.__thorn4 = new Thorn(this, 3000, 950, 'scene-decoration', 'Thorn_3.png');
+        this.__thorn4 = new Thorn(this, 3500, 950, 'scene-decoration', 'Thorn_3.png');
+
+        this.__elastic1 = new Elastic(this, 2300, 950, '');
+        this.physics.add.overlap(
+            this.player,
+            this.__elastic1,
+            function (_player, _elastic) {
+                if (_player.body.velocity.y >= 0) {
+                    _elastic.onJump();
+                    
+                    _player.anims.play('anim-mossy-jump', true);
+                    _player.y -= 1;
+                    _player.setVelocityY(-JUMP_SPEED * 1.5);
+                }
+            }
+        );
+
+        // this.__thorn3 = this.add.image(2500, 950, 'scene-decoration', 'Thorn_3.png').setPipeline('Light2D').setScale(0.75);
+        // this.__thorn4 = this.add.image(2600, 950, 'scene-decoration', 'Thorn_3.png').setPipeline('Light2D').setScale(0.75);
         this.__flower1 = this.add.image(1800, 800, 'scene-decoration', 'Moss_6.png').setPipeline('Light2D');
         this.__flower2 = this.add.image(1900, 800, 'scene-decoration', 'Moss_5.png').setPipeline('Light2D');
 
@@ -866,7 +893,6 @@ export default class Level1 extends Phaser.Scene {
             else if (this.isStanding) this.player.anims.play('anim-mossy-walk', true);
             this.player.flipX = false;
         }
-        // hoang code end
     }
 
     // hoang code
