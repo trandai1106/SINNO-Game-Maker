@@ -6,6 +6,7 @@ import LevelSelect from './scenes/LevelSelect.js';
 import Guide from './scenes/Guide.js';
 import Level1 from './scenes/Level1.js';
 import Level2 from './scenes/Level2.js';
+import Level3 from './scenes/Level3.js';
 import Pause from './scenes/Pause.js';
 import About from './scenes/About.js';
 import GameOver from './scenes/GameOver.js';
@@ -27,6 +28,7 @@ export default new Phaser.Game({
         About,
         Level1,
         Level2,
+        Level3,
         Pause,
         GameOver
     ],

@@ -205,9 +205,26 @@ export default class Level1 extends Phaser.Scene {
         .setFlipX(1)
         .setPipeline('Light2D');
         this.plant2.anims.play('anim-blue-flower-2', true);
-        this.lights.addLight(220, 730, 600)
+        var lightFlower = this.lights.addLight(220, 730, 40)
         .setColor(0x75d9a5)
         .setIntensity(2);
+        lightFlower.rate = 1;
+        this.tweens.add({
+            targets: lightFlower,
+            duration: 6500,
+            loop: -1,
+            yoyo: true,
+            x: {from: 220, to: 270},
+            y: {from: 730, to: 780},
+            onYoyo: function () { 
+                // console.log('onYoyo'); 
+                lightFlower.rate *= -1;
+            },
+            onUpdate: function () { 
+                // console.log('onUpdate'); 
+                lightFlower.radius += lightFlower.rate;
+            }
+        });
 
         // this.plant4 = this.add.sprite(1850, 320, '')
         // .setOrigin(0.5)
@@ -631,6 +648,21 @@ export default class Level1 extends Phaser.Scene {
             }
             else if (this.musicButton.texture.key == 'music-button-off-hover') {
                 this.musicButton.setTexture('music-button-off');
+            }
+        });
+
+        // Full screen button
+        this.fullScreenButton = this.add.image(1240, 680, 'full-screen-button')
+        .setScale(0.3)
+        .setScrollFactor(0)
+        .setInteractive();
+
+        this.fullScreenButton.on('pointerdown', () => {
+            if (!this.scale.isFullscreen) {
+                this.scale.startFullscreen();
+            }
+            else {
+                this.scale.stopFullscreen();
             }
         });
 

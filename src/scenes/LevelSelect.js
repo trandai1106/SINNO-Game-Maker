@@ -25,8 +25,11 @@ export default class LevelSelect extends Phaser.Scene {
 
         this.level02Button = this.add.image(575, 320, 'level-01-button')
         .setInteractive();
+        
+        this.level03Button = this.add.image(675, 320, 'level-01-button')
+        .setInteractive();
 
-        this.levelComingSoonButton = this.add.image(675, 320, 'level-coming-soon-button')
+        this.levelComingSoonButton = this.add.image(775, 320, 'level-coming-soon-button')
         .setInteractive();
         
         // this.levelComingSoonButton = this.add.image(575, 320, 'level-coming-soon-button')
@@ -62,6 +65,20 @@ export default class LevelSelect extends Phaser.Scene {
         this.level02Button.on('pointerup', () => {
             this.scene.bringToTop('level-2');    
             this.scene.start('level-2');
+        });
+        
+        this.level03Button.on('pointerover', () => {
+            this.level03Button.setTexture('level-01-button-hover');
+        });
+        this.level03Button.on('pointerout', () => {
+            this.level03Button.setTexture('level-01-button');
+        });
+        this.level03Button.on('pointerdown', () => {
+            this.level03Button.setTexture('level-01-button-click');
+        });
+        this.level03Button.on('pointerup', () => {
+            this.scene.bringToTop('level-3');    
+            this.scene.start('level-3');
         });
         
         this.levelComingSoonButton.on('pointerover', () => {

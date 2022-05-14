@@ -85,6 +85,7 @@ export default class Preload extends Phaser.Scene {
         this.load.image('level-coming-soon-button', 'assets/sprites/GUI/level-coming-soon.png');
         this.load.image('level-coming-soon-button-hover', 'assets/sprites/GUI/level-coming-soon_hover.png');
         this.load.image('level-coming-soon-button-click', 'assets/sprites/GUI/level-coming-soon_click.png');
+        this.load.image('full-screen-button', 'assets/sprites/GUI/btnFullScreen.png');
 
         // Particle system
         this.load.image('ps-seed', 'assets/sprites/Environment/ParticleSystem/particle-system-seed.png');
@@ -93,6 +94,7 @@ export default class Preload extends Phaser.Scene {
         // Load platform tilemap
         this.load.tilemapTiledJSON('map-01', 'assets/sprites/Environment/MossyTileset/map-01.json');
         this.load.tilemapTiledJSON('map-02', 'assets/sprites/Environment/MossyTileset/map-02.json');
+        this.load.tilemapTiledJSON('map-03', 'assets/sprites/Environment/MossyTileset/map-03.json');
         
         this.load.image('tileset-1', 'assets/sprites/Environment/MossyTileset/Mossy - TileSet.png');
         
@@ -100,6 +102,8 @@ export default class Preload extends Phaser.Scene {
 
         this.load.atlas('scene-decoration', 'assets/sprites/Environment/MossyTileset/scene_decoration.png', 
         'assets/sprites/Environment/MossyTileset/scene_decoration.json');
+        
+        this.load.image('drop-platform', 'assets/sprites/Environment/MossyTileset/drop-platform.png');
 
         // Load Mossy
         this.load.spritesheet('mossy-idle', 'assets/sprites/BlueWizard/mossy-idle.png', {
@@ -456,6 +460,6 @@ export default class Preload extends Phaser.Scene {
         // });
 
         this.scene.start('menu');
-        // this.scene.start('level-2');
+        // this.scene.start('level-3');
     }
 }

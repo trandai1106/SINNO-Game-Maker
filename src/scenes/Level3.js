@@ -3,6 +3,7 @@ import Phaser from '../lib/phaser.js';
 import Mossy from '../game/Mossy.js'
 import Thorn from '../game/Thorn.js'
 import Elastic from '../game/Elastic.js'
+import DropPlatform from '../game/DropPlatform.js'
 import SlimeEnemy from '../game/SlimeEnemies.js';
 import TRex from '../game/TrexEnemies.js';
 import Skeleton from '../game/SkeletonEnemies.js';
@@ -13,14 +14,14 @@ const JUMP_SPEED = 650;
 const GRAVITY = 600;
 const BULLET_SPEED = 350;
 
-export default class Level2 extends Phaser.Scene {
+export default class Level3 extends Phaser.Scene {
 
     isStanding
     canShoot = true
     vol = 0.1
 
     constructor() {
-        super("level-2");
+        super("level-3");
     }
     
     init() {
@@ -39,7 +40,7 @@ export default class Level2 extends Phaser.Scene {
         .setPipeline('Light2D');
 
         // BG Layers
-        const map = this.make.tilemap({ key: 'map-02' });
+        const map = this.make.tilemap({ key: 'map-03' });
         const tileset = map.addTilesetImage('tileset', 'tileset-1');
 
         // Rain effect
@@ -48,7 +49,7 @@ export default class Level2 extends Phaser.Scene {
 
         particles.createEmitter({
             x: { min: 0, max: 4000 },
-            y: { min: 0, max: 1000 },
+            y: { min: 400, max: 2000 },
             speedX: { min: -10, max: 10 },
             speedY: { min: -10, max: 10 },
             lifespan: 4000,
@@ -72,10 +73,10 @@ export default class Level2 extends Phaser.Scene {
         
         // Player
 
-        this.player = new Mossy(this, 600, 800);
+        this.player = new Mossy(this, 400, 1000);
         // this.player = new Mossy(this, 3700, 800);
         
-        this.gate = this.physics.add.sprite(3800, 800, '')
+        this.gate = this.physics.add.sprite(4200, 1200, '')
         .setPipeline('Light2D');
         this.gate.anims.play('anim-effect-1', true);
         this.gate.anims.yoyo = true;
@@ -90,35 +91,50 @@ export default class Level2 extends Phaser.Scene {
                 else {
                     scene.isGameOver = true;
                     setTimeout(() => { 
+                        // scene.scene.launch('level-4');
+                        
                         scene.scene.pause();
                         scene.sound.removeAll();
-                        scene.scene.bringToTop('level-3');   
-                        scene.scene.launch('level-3');
-                        
-                        // scene.scene.pause();
-                        // scene.sound.removeAll();
-                        // scene.scene.bringToTop('game-over');    
-                        // scene.scene.launch('game-over', {
-                        //     sceneKey: 'level-2',
-                        //     hasWon: true
-                        // });
+                        scene.scene.bringToTop('game-over');    
+                        scene.scene.launch('game-over', {
+                            sceneKey: 'level-3',
+                            hasWon: true
+                        });
                     }, 500);
                 }
             }
         );
 
+        // drop platform
+        this.dropPlatform = [];
+        this.dropPlatform.push(new DropPlatform(this, 1080, 1100, 'drop-platform'))
+        this.dropPlatform.push(new DropPlatform(this, 1480, 1100, 'drop-platform'))
+        this.dropPlatform.push(new DropPlatform(this, 1880, 1100, 'drop-platform'))
+        var scene = this;
+        for (var i = 0; i < this.dropPlatform.length; i++) {
+            this.physics.add.collider(
+                this.player,
+                this.dropPlatform[i],
+                function (_player, _dropPlatform) {
+                    if (_player.body.onFloor()) scene.isStanding = true;
+                    _dropPlatform.onJump();
+                    console.log('drop')
+                }
+            );
+        }
+
         // light
-        var light0 = this.lights.addLight(900, 400, 30)
+        var light0 = this.lights.addLight(950, 1000, 200)
         .setColor(0x75d9a5)
         .setIntensity(2);
         light0.rate = 1;
         this.tweens.add({
             targets: light0,
-            duration: 2500,
+            duration: 6500,
             loop: -1,
             yoyo: true,
-            x: {from: 900, to: 950},
-            y: {from: 400, to: 430},
+            x: {from: 950, to: 1000},
+            y: {from: 900, to: 930},
             onYoyo: function () { 
                 // console.log('onYoyo'); 
                 light0.rate *= -1;
@@ -129,7 +145,7 @@ export default class Level2 extends Phaser.Scene {
             }
         });
 
-        var light = this.lights.addLight(1800, 600, 240)
+        var light = this.lights.addLight(1800, 900, 40)
         .setColor(0x75d9a5)
         .setIntensity(2);
         light.rate = 1;
@@ -139,7 +155,7 @@ export default class Level2 extends Phaser.Scene {
             loop: -1,
             yoyo: true,
             x: {from: 1900, to: 1950},
-            y: {from: 600, to: 630},
+            y: {from: 900, to: 930},
             onYoyo: function () { 
                 // console.log('onYoyo'); 
                 light.rate *= -1;
@@ -149,14 +165,14 @@ export default class Level2 extends Phaser.Scene {
                 light.radius += light.rate;
             }
         });
-        this.blueFlower0 = this.add.sprite(160, 660, '')
+        this.blueFlower0 = this.add.sprite(120, 1000, '')
         .setScale(0.2)
         .setOrigin(0.5)
         .setFlipX(1)
         .setAngle(-20)
         .setPipeline('Light2D');
         this.blueFlower0.anims.play('anim-blue-flower-2', true);
-        var lightFlower = this.lights.addLight(180, 630, 40)
+        var lightFlower = this.lights.addLight(140, 970, 40)
         .setColor(0x75d9a5)
         .setIntensity(2);
         lightFlower.rate = 1;
@@ -165,8 +181,8 @@ export default class Level2 extends Phaser.Scene {
             duration: 6500,
             loop: -1,
             yoyo: true,
-            x: {from: 180, to: 230},
-            y: {from: 630, to: 680},
+            x: {from: 140, to: 190},
+            y: {from: 970, to: 1020},
             onYoyo: function () { 
                 // console.log('onYoyo'); 
                 lightFlower.rate *= -1;
@@ -176,7 +192,8 @@ export default class Level2 extends Phaser.Scene {
                 lightFlower.radius += lightFlower.rate;
             }
         });
-        this.blueFlower1 = this.add.sprite(3410, 660, '')
+
+        this.blueFlower1 = this.add.sprite(3750, 1240, '')
         .setFlipX(true)
         .setScale(0.2)
         .setOrigin(0.5)
@@ -184,7 +201,18 @@ export default class Level2 extends Phaser.Scene {
         .setAngle(-20)
         .setPipeline('Light2D');
         this.blueFlower1.anims.play('anim-blue-flower-1', true);
-        this.lightFlower = this.lights.addLight(3430, 630, 600)
+        this.lights.addLight(3770, 1210, 600)
+        .setColor(0x75d9a5)
+        .setIntensity(2);
+
+        this.blueFlower2 = this.add.sprite(2420, 1120, '')
+        .setFlipX(true)
+        .setScale(0.2)
+        .setOrigin(0.5)
+        .setAngle(-20)
+        .setPipeline('Light2D');
+        this.blueFlower2.anims.play('anim-blue-flower-1', true);
+        this.lights.addLight(2460, 1090, 140)
         .setColor(0x75d9a5)
         .setIntensity(2);
         
@@ -193,20 +221,20 @@ export default class Level2 extends Phaser.Scene {
         // this.__thorn2 = this.add.image(1300, 800, 'scene-decoration', 'Thorn_2.png').setPipeline('Light2D');
         // this.__thorn4 = new Thorn(this, 3500, 950, 'scene-decoration', 'Thorn_3.png');
 
-        this.__elastic1 = new Elastic(this, 2480, 950, '');
-        this.physics.add.overlap(
-            this.player,
-            this.__elastic1,
-            function (_player, _elastic) {
-                if (_player.body.velocity.y >= 0) {
-                    _elastic.onJump();
+        // this.__elastic1 = new Elastic(this, 2480, 950, '');
+        // this.physics.add.overlap(
+        //     this.player,
+        //     this.__elastic1,
+        //     function (_player, _elastic) {
+        //         if (_player.body.velocity.y >= 0) {
+        //             _elastic.onJump();
                     
-                    _player.anims.play('anim-mossy-jump', true);
-                    _player.y -= 1;
-                    _player.setVelocityY(-JUMP_SPEED * 1.5);
-                }
-            }
-        );
+        //             _player.anims.play('anim-mossy-jump', true);
+        //             _player.y -= 1;
+        //             _player.setVelocityY(-JUMP_SPEED * 1.5);
+        //         }
+        //     }
+        // );
         
         var light2 = this.lights.addLight(2600, 400, 80)
         .setColor(0x75d9a5)
@@ -539,7 +567,7 @@ export default class Level2 extends Phaser.Scene {
         .setOrigin(0)
         .setPipeline('Light2D');
         
-        // Rock layer
+        // // Rock layer
         const layerRock = map.createFromObjects('Rock', [
             { gid: 811, key: 'scene-decoration', frame: 'Rock_1.png' },
             { gid: 812, key: 'scene-decoration', frame: 'Rock_2.png' },
@@ -640,24 +668,25 @@ export default class Level2 extends Phaser.Scene {
         this.physics.add.collider(this.player, this.map_collider_2);
 
         // Set Thorn body collider
-        this.thorn_collider_1 = this.physics.add.sprite(1400, 1060, '')
-        .setSize(400, 50)
-        .setVisible(0);
+        this.thorn_collider_1 = this.physics.add.sprite(2000, 1290, '')
+        .setSize(3400, 50)
+        .setVisible(0)
+        .setPipeline('Light2D');
         this.physics.add.overlap(this.player, this.thorn_collider_1, () => {
             this.scene.restart();
         });
-        this.thorn_collider_2 = this.physics.add.sprite(2000, 1060, '')
-        .setSize(400, 50)
-        .setVisible(0);
-        this.physics.add.overlap(this.player, this.thorn_collider_2, () => {
-            this.scene.restart();
-        });
-        this.thorn_collider_3 = this.physics.add.sprite(2600, 1060, '')
-        .setSize(400, 50)
-        .setVisible(0);
-        this.physics.add.overlap(this.player, this.thorn_collider_3, () => {
-            this.scene.restart();
-        });
+        // this.thorn_collider_2 = this.physics.add.sprite(2000, 1060, '')
+        // .setSize(400, 50)
+        // .setVisible(0);
+        // this.physics.add.overlap(this.player, this.thorn_collider_2, () => {
+        //     this.scene.restart();
+        // });
+        // this.thorn_collider_3 = this.physics.add.sprite(2600, 1060, '')
+        // .setSize(400, 50)
+        // .setVisible(0);
+        // this.physics.add.overlap(this.player, this.thorn_collider_3, () => {
+        //     this.scene.restart();
+        // });
         // this.thorn_collider_2 = this.physics.add.sprite(5210, 500, 'back-button')
         // .setSize(500, 10)
         // .setVisible(0);
@@ -719,7 +748,7 @@ export default class Level2 extends Phaser.Scene {
             this.sound.pauseAll();
             this.scene.bringToTop('pause');
             this.scene.launch('pause', {
-                sceneKey: 'level-2',
+                sceneKey: 'level-3',
                 playingMusic: !(this.musicButton.texture.key == 'music-button-off')
             });
         });
@@ -765,6 +794,7 @@ export default class Level2 extends Phaser.Scene {
                 this.musicButton.setTexture('music-button-off');
             }
         });
+
         // Full screen button
         this.fullScreenButton = this.add.image(1240, 680, 'full-screen-button')
         .setScale(0.3)
@@ -1011,7 +1041,7 @@ export default class Level2 extends Phaser.Scene {
                     this.sound.removeAll();
                     this.scene.bringToTop('game-over');    
                     this.scene.launch('game-over', {
-                        sceneKey: 'level-2',
+                        sceneKey: 'level-3',
                         hasWon: false
                     });
                 }, 2000);
