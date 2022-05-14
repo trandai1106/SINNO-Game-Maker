@@ -43,8 +43,8 @@ export default class Level3 extends Phaser.Scene {
         const map = this.make.tilemap({ key: 'map-03' });
         const tileset = map.addTilesetImage('tileset', 'tileset-1');
 
-        // Rain effect
-        var particles = this.add.particles('rain')
+        // Light effect
+        var particles = this.add.particles('light')
         .setPipeline('Light2D');
 
         particles.createEmitter({
@@ -57,19 +57,20 @@ export default class Level3 extends Phaser.Scene {
             // quantity: 4,
             blendMode: 'ADD'
         });
-        // var particles = this.add.particles('rain')
-        // .setPipeline('Light2D');
+        // Rain effect
+        var particles = this.add.particles('rain')
+        .setPipeline('Light2D');
 
-        // particles.createEmitter({
-        //     x: { min: 100, max: 2900 },
-        //     y: 10,
-        //     speedX: { min: -75, max: -50 },
-        //     speedY: { min: 200, max: 400 },
-        //     lifespan: 4000,
-        //     scale: { min: 0.1, max: 0.5 },
-        //     // quantity: 4,
-        //     blendMode: 'ADD'
-        // });
+        particles.createEmitter({
+            x: { min: 0, max: 4900 },
+            y: 300,
+            speedX: { min: -75, max: -50 },
+            speedY: { min: 600, max: 900 },
+            lifespan: 4000,
+            scale: { min: 0.5, max: 1 },
+            quantity: 4,
+            blendMode: 'ADD'
+        });
         
         // Player
 
@@ -124,47 +125,47 @@ export default class Level3 extends Phaser.Scene {
         }
 
         // light
-        var light0 = this.lights.addLight(950, 1000, 200)
-        .setColor(0x75d9a5)
-        .setIntensity(2);
-        light0.rate = 1;
-        this.tweens.add({
-            targets: light0,
-            duration: 6500,
-            loop: -1,
-            yoyo: true,
-            x: {from: 950, to: 1000},
-            y: {from: 900, to: 930},
-            onYoyo: function () { 
-                // console.log('onYoyo'); 
-                light0.rate *= -1;
-            },
-            onUpdate: function () { 
-                // console.log('onUpdate'); 
-                light0.radius += light0.rate;
-            }
-        });
+        // var light0 = this.lights.addLight(950, 1000, 70)
+        // .setColor(0x75d9a5)
+        // .setIntensity(2);
+        // light0.rate = 1;
+        // this.tweens.add({
+        //     targets: light0,
+        //     duration: 6500,
+        //     loop: -1,
+        //     yoyo: true,
+        //     x: {from: 950, to: 1000},
+        //     y: {from: 900, to: 930},
+        //     onYoyo: function () { 
+        //         // console.log('onYoyo'); 
+        //         light0.rate *= -1;
+        //     },
+        //     onUpdate: function () { 
+        //         // console.log('onUpdate'); 
+        //         light0.radius += light0.rate;
+        //     }
+        // });
 
-        var light = this.lights.addLight(1800, 900, 40)
-        .setColor(0x75d9a5)
-        .setIntensity(2);
-        light.rate = 1;
-        var tween = this.tweens.add({
-            targets: light,
-            duration: 2500,
-            loop: -1,
-            yoyo: true,
-            x: {from: 1900, to: 1950},
-            y: {from: 900, to: 930},
-            onYoyo: function () { 
-                // console.log('onYoyo'); 
-                light.rate *= -1;
-            },
-            onUpdate: function () { 
-                // console.log('onUpdate'); 
-                light.radius += light.rate;
-            }
-        });
+        // var light = this.lights.addLight(1800, 900, 40)
+        // .setColor(0x75d9a5)
+        // .setIntensity(2);
+        // light.rate = 1;
+        // var tween = this.tweens.add({
+        //     targets: light,
+        //     duration: 2500,
+        //     loop: -1,
+        //     yoyo: true,
+        //     x: {from: 1900, to: 1950},
+        //     y: {from: 900, to: 930},
+        //     onYoyo: function () { 
+        //         // console.log('onYoyo'); 
+        //         light.rate *= -1;
+        //     },
+        //     onUpdate: function () { 
+        //         // console.log('onUpdate'); 
+        //         light.radius += light.rate;
+        //     }
+        // });
         this.blueFlower0 = this.add.sprite(120, 1000, '')
         .setScale(0.2)
         .setOrigin(0.5)

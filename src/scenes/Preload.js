@@ -90,6 +90,7 @@ export default class Preload extends Phaser.Scene {
         // Particle system
         this.load.image('ps-seed', 'assets/sprites/Environment/ParticleSystem/particle-system-seed.png');
         this.load.image('rain', 'assets/sprites/Environment/ParticleSystem/rain.png');
+        this.load.image('light', 'assets/sprites/Environment/ParticleSystem/light.png');
 
         // Load platform tilemap
         this.load.tilemapTiledJSON('map-01', 'assets/sprites/Environment/MossyTileset/map-01.json');

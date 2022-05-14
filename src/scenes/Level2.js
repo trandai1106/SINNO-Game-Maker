@@ -43,7 +43,7 @@ export default class Level2 extends Phaser.Scene {
         const tileset = map.addTilesetImage('tileset', 'tileset-1');
 
         // Rain effect
-        var particles = this.add.particles('rain')
+        var particles = this.add.particles('light')
         .setPipeline('Light2D');
 
         particles.createEmitter({
