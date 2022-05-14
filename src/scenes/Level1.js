@@ -96,7 +96,8 @@ export default class Level1 extends Phaser.Scene {
         .setColor(0x75d9a5)
         .setIntensity(2);
 
-        this.gate = this.physics.add.sprite(3740, 620, '');
+        this.gate = this.physics.add.sprite(3740, 620, '')
+        .setPipeline('Light2D');
         this.gate.anims.play('anim-effect-1', true);
         this.gate.anims.yoyo = true;
         this.gate.body.setSize(80, 80).setOffset(60, 60);
@@ -110,15 +111,18 @@ export default class Level1 extends Phaser.Scene {
                 else {
                     scene.isGameOver = true;
                     setTimeout(() => { 
-                        // scene.scene.launch('level-2');
-                        
                         scene.scene.pause();
                         scene.sound.removeAll();
-                        scene.scene.bringToTop('game-over');    
-                        scene.scene.launch('game-over', {
-                            sceneKey: 'level-1',
-                            hasWon: true
-                        });
+                        scene.scene.bringToTop('level-2');    
+                        scene.scene.launch('level-2');
+                        
+                        // scene.scene.pause();
+                        // scene.sound.removeAll();
+                        // scene.scene.bringToTop('game-over');    
+                        // scene.scene.launch('game-over', {
+                        //     sceneKey: 'level-1',
+                        //     hasWon: true
+                        // });
                     }, 500);
                 }
             }

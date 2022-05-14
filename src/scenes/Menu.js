@@ -39,8 +39,10 @@ export default class Menu extends Phaser.Scene {
             this.playButton.setTexture('play-button-click');
         });
         this.playButton.on('pointerup', () => {
-            this.scene.bringToTop('level-select');    
-            this.scene.start('level-select');
+            // this.scene.bringToTop('level-select');    
+            // this.scene.start('level-select');
+            this.scene.bringToTop('level-1');    
+            this.scene.start('level-1');
         });
 
         

@@ -73,9 +73,60 @@ export default class Level2 extends Phaser.Scene {
         // Player
 
         this.player = new Mossy(this, 600, 800);
+        // this.player = new Mossy(this, 3700, 800);
+        
+        this.gate = this.physics.add.sprite(3800, 800, '')
+        .setPipeline('Light2D');
+        this.gate.anims.play('anim-effect-1', true);
+        this.gate.anims.yoyo = true;
+        this.gate.body.setSize(80, 80).setOffset(60, 60);
+        var scene = this;
+        this.physics.add.overlap(
+            this.player,
+            this.gate,
+            function (_player, _gate) {
+                if (scene.isGameOver) return;
+                
+                else {
+                    scene.isGameOver = true;
+                    setTimeout(() => { 
+                        // scene.scene.launch('level-2');
+                        
+                        scene.scene.pause();
+                        scene.sound.removeAll();
+                        scene.scene.bringToTop('game-over');    
+                        scene.scene.launch('game-over', {
+                            sceneKey: 'level-2',
+                            hasWon: true
+                        });
+                    }, 500);
+                }
+            }
+        );
 
         // light
-        var light = this.lights.addLight(1900, 600, 40)
+        var light0 = this.lights.addLight(900, 400, 30)
+        .setColor(0x75d9a5)
+        .setIntensity(2);
+        light0.rate = 1;
+        this.tweens.add({
+            targets: light0,
+            duration: 2500,
+            loop: -1,
+            yoyo: true,
+            x: {from: 900, to: 950},
+            y: {from: 400, to: 430},
+            onYoyo: function () { 
+                // console.log('onYoyo'); 
+                light0.rate *= -1;
+            },
+            onUpdate: function () { 
+                // console.log('onUpdate'); 
+                light0.radius += light0.rate;
+            }
+        });
+
+        var light = this.lights.addLight(1800, 600, 40)
         .setColor(0x75d9a5)
         .setIntensity(2);
         light.rate = 1;
@@ -106,21 +157,22 @@ export default class Level2 extends Phaser.Scene {
         .setColor(0x75d9a5)
         .setIntensity(2);
 
-        this.blueFlower1 = this.add.sprite(2910, 860, '')
+        this.blueFlower1 = this.add.sprite(3410, 660, '')
+        .setFlipX(true)
         .setScale(0.2)
         .setOrigin(0.5)
         .setFlipX(1)
         .setAngle(-20)
         .setPipeline('Light2D');
         this.blueFlower1.anims.play('anim-blue-flower-1', true);
-        this.lightFlower = this.lights.addLight(2930, 830, 600)
+        this.lightFlower = this.lights.addLight(3430, 630, 600)
         .setColor(0x75d9a5)
         .setIntensity(2);
         
         // thorn
         // this.__thorn1 = this.add.image(1200, 800, 'scene-decoration', 'Thorn_1.png').setPipeline('Light2D');
         // this.__thorn2 = this.add.image(1300, 800, 'scene-decoration', 'Thorn_2.png').setPipeline('Light2D');
-        this.__thorn4 = new Thorn(this, 3500, 950, 'scene-decoration', 'Thorn_3.png');
+        // this.__thorn4 = new Thorn(this, 3500, 950, 'scene-decoration', 'Thorn_3.png');
 
         this.__elastic1 = new Elastic(this, 2480, 950, '');
         this.physics.add.overlap(
@@ -136,6 +188,27 @@ export default class Level2 extends Phaser.Scene {
                 }
             }
         );
+        
+        var light2 = this.lights.addLight(2600, 400, 80)
+        .setColor(0x75d9a5)
+        .setIntensity(2);
+        light2.rate = 1;
+        this.tweens.add({
+            targets: light2,
+            duration: 2500,
+            loop: -1,
+            yoyo: true,
+            x: {from: 2600, to: 2650},
+            y: {from: 600, to: 630},
+            onYoyo: function () { 
+                // console.log('onYoyo'); 
+                light2.rate *= -1;
+            },
+            onUpdate: function () { 
+                // console.log('onUpdate'); 
+                light2.radius += light2.rate;
+            }
+        });
 
         // this.__thorn3 = this.add.image(2500, 950, 'scene-decoration', 'Thorn_3.png').setPipeline('Light2D').setScale(0.75);
         // this.__thorn4 = this.add.image(2600, 950, 'scene-decoration', 'Thorn_3.png').setPipeline('Light2D').setScale(0.75);
@@ -548,15 +621,24 @@ export default class Level2 extends Phaser.Scene {
         this.physics.add.collider(this.player, this.map_collider_2);
 
         // Set Thorn body collider
-        // this.thorn_collider_1 = this.physics.add.sprite(800, 500, 'back-button')
-        // .setSize(500, 10)
-        // .setVisible(0);
-        // this.physics.add.overlap(this.player, this.thorn_collider_1, () => {
-        //     this.player.isHurt = true;
-        //     this.player.hurt(2);
-        //     this.player.setVelocityY(-JUMP_SPEED);
-        //     this.player.anims.play('anim-mossy-jump', true);
-        // });
+        this.thorn_collider_1 = this.physics.add.sprite(1400, 1060, '')
+        .setSize(400, 50)
+        .setVisible(0);
+        this.physics.add.overlap(this.player, this.thorn_collider_1, () => {
+            this.scene.restart();
+        });
+        this.thorn_collider_2 = this.physics.add.sprite(2000, 1060, '')
+        .setSize(400, 50)
+        .setVisible(0);
+        this.physics.add.overlap(this.player, this.thorn_collider_2, () => {
+            this.scene.restart();
+        });
+        this.thorn_collider_3 = this.physics.add.sprite(2600, 1060, '')
+        .setSize(400, 50)
+        .setVisible(0);
+        this.physics.add.overlap(this.player, this.thorn_collider_3, () => {
+            this.scene.restart();
+        });
         // this.thorn_collider_2 = this.physics.add.sprite(5210, 500, 'back-button')
         // .setSize(500, 10)
         // .setVisible(0);
@@ -602,68 +684,68 @@ export default class Level2 extends Phaser.Scene {
         // .setOrigin(0, 0.5)
         // .setScrollFactor(0);
         // Button 
-        // this.pauseButton = this.add.image(1194, 6, 'pause-button')
-        // .setScrollFactor(0)
-        // .setOrigin(1, 0);
-        // this.pauseButton.setInteractive();
-        // this.pauseButton.on('pointerover', () => {
-        //     this.pauseButton.setTexture('pause-button-hover');
-        // });
-        // this.pauseButton.on('pointerdown', () => {
-        //     this.pauseButton.setTexture('pause-button-click');
-        // });
-        // this.pauseButton.on('pointerup', () => {
-        //     this.pauseButton.setTexture('pause-button');
-        //     this.scene.pause();
-        //     this.sound.pauseAll();
-        //     this.scene.bringToTop('pause');
-        //     this.scene.launch('pause', {
-        //         sceneKey: 'level-01',
-        //         playingMusic: !(this.musicButton.texture.key == 'music-button-off')
-        //     });
-        // });
-        // this.pauseButton.on('pointerout', () => {
-        //     this.pauseButton.setTexture('pause-button');
-        // });
+        this.pauseButton = this.add.image(1274, 6, 'pause-button')
+        .setScrollFactor(0)
+        .setOrigin(1, 0);
+        this.pauseButton.setInteractive();
+        this.pauseButton.on('pointerover', () => {
+            this.pauseButton.setTexture('pause-button-hover');
+        });
+        this.pauseButton.on('pointerdown', () => {
+            this.pauseButton.setTexture('pause-button-click');
+        });
+        this.pauseButton.on('pointerup', () => {
+            this.pauseButton.setTexture('pause-button');
+            this.scene.pause();
+            this.sound.pauseAll();
+            this.scene.bringToTop('pause');
+            this.scene.launch('pause', {
+                sceneKey: 'level-2',
+                playingMusic: !(this.musicButton.texture.key == 'music-button-off')
+            });
+        });
+        this.pauseButton.on('pointerout', () => {
+            this.pauseButton.setTexture('pause-button');
+        });
         
-        // this.musicButton = this.add.image(1118, 6, 'music-button')
-        // .setScrollFactor(0)
-        // .setOrigin(1, 0);
-        // this.musicButton.setInteractive();
-        // this.musicButton.on('pointerover', () => {
-        //     if (this.musicButton.texture.key == 'music-button') {
-        //         this.musicButton.setTexture('music-button-hover');
-        //     }
-        //     else if (this.musicButton.texture.key == 'music-button-off') {
-        //         this.musicButton.setTexture('music-button-off-hover');
-        //     }
-        // });
-        // this.musicButton.on('pointerdown', () => {
-        //     if (this.musicButton.texture.key == 'music-button-hover') {   
-        //         this.musicButton.setTexture('music-button-click');
-        //     }
-        //     else if (this.musicButton.texture.key == 'music-button-off-hover') {   
-        //         this.musicButton.setTexture('music-button-off-click');
-        //     }
-        // });
-        // this.musicButton.on('pointerup', () => {
-        //     if (this.musicButton.texture.key == 'music-button-click') {
-        //         this.sound.pauseAll();
-        //         this.musicButton.setTexture('music-button-off');
-        //     }
-        //     else if (this.musicButton.texture.key == 'music-button-off-click') {
-        //         this.sound.resumeAll();
-        //         this.musicButton.setTexture('music-button');
-        //     }
-        // });
-        // this.musicButton.on('pointerout', () => {
-        //     if (this.musicButton.texture.key == 'music-button-hover') {
-        //         this.musicButton.setTexture('music-button');
-        //     }
-        //     else if (this.musicButton.texture.key == 'music-button-off-hover') {
-        //         this.musicButton.setTexture('music-button-off');
-        //     }
-        // });
+        this.musicButton = this.add.image(1198, 6, 'music-button')
+        .setScrollFactor(0)
+        .setOrigin(1, 0);
+        this.musicButton.setInteractive();
+        this.musicButton.on('pointerover', () => {
+            if (this.musicButton.texture.key == 'music-button') {
+                this.musicButton.setTexture('music-button-hover');
+            }
+            else if (this.musicButton.texture.key == 'music-button-off') {
+                this.musicButton.setTexture('music-button-off-hover');
+            }
+        });
+        this.musicButton.on('pointerdown', () => {
+            if (this.musicButton.texture.key == 'music-button-hover') {   
+                this.musicButton.setTexture('music-button-click');
+            }
+            else if (this.musicButton.texture.key == 'music-button-off-hover') {   
+                this.musicButton.setTexture('music-button-off-click');
+            }
+        });
+        this.musicButton.on('pointerup', () => {
+            if (this.musicButton.texture.key == 'music-button-click') {
+                this.sound.pauseAll();
+                this.musicButton.setTexture('music-button-off');
+            }
+            else if (this.musicButton.texture.key == 'music-button-off-click') {
+                this.sound.resumeAll();
+                this.musicButton.setTexture('music-button');
+            }
+        });
+        this.musicButton.on('pointerout', () => {
+            if (this.musicButton.texture.key == 'music-button-hover') {
+                this.musicButton.setTexture('music-button');
+            }
+            else if (this.musicButton.texture.key == 'music-button-off-hover') {
+                this.musicButton.setTexture('music-button-off');
+            }
+        });
 
         // Physical collision detection
         // Player
@@ -766,7 +848,7 @@ export default class Level2 extends Phaser.Scene {
         // hoang code end
 
         // Bound the camera
-        this.cameras.main.setBounds(0, 0, 16000, 3080)
+        this.cameras.main.setBounds(0, 0, 4400, 3080)
         .startFollow(this.player)
         .setDeadzone(this.scale.width * 0.2, this.scale.height * 0.35);
         // Fix bug line between tiles of tilemap
@@ -896,7 +978,7 @@ export default class Level2 extends Phaser.Scene {
                     this.sound.removeAll();
                     this.scene.bringToTop('game-over');    
                     this.scene.launch('game-over', {
-                        sceneKey: 'level-01',
+                        sceneKey: 'level-2',
                         hasWon: false
                     });
                 }, 2000);
@@ -909,12 +991,12 @@ export default class Level2 extends Phaser.Scene {
         }
 
         // Dash
-        if (this.cursors.down.isDown) {
-            this.player.anims.play('anim-mossy-dash', true);
-            const direct = this.player.flipX ? -1 : 1;
-            this.player.setVelocityX(RUN_SPEED * 3 * direct);
-            return;
-        }
+        // if (this.cursors.down.isDown) {
+        //     this.player.anims.play('anim-mossy-dash', true);
+        //     const direct = this.player.flipX ? -1 : 1;
+        //     this.player.setVelocityX(RUN_SPEED * 3 * direct);
+        //     return;
+        // }
         if (!this.cursors.left.isDown && !this.cursors.right.isDown) {
             if (this.player.isImmortal) this.player.anims.play('anim-mossy-hurt', true);
             else if (this.isStanding) this.player.anims.play('anim-mossy-idle', true);
