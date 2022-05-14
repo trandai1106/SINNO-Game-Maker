@@ -10,12 +10,12 @@ export default class Guide extends Phaser.Scene {
 
     create() {
         this.bg = this.add.tileSprite(0, 0, 0, 0, 'background-05')
-        .setDisplaySize(1200, 580)
+        .setDisplaySize(1280, 720)
         .setOrigin(0);
 
-        this.add.image(600, 280, 'guide');
+        this.add.image(640, 360, 'guide');
 
-        this.backButton = this.add.image(600, 520, 'back-button')
+        this.backButton = this.add.image(640, 600, 'back-button')
         .setScale(0.75)
         .setInteractive();
         

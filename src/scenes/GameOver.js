@@ -12,15 +12,15 @@ export default class GameOver extends Phaser.Scene {
 
     create() {
         if (this.hasWon) {
-            this.add.image(600, 290, 'win-frame');
+            this.add.image(640, 360, 'win-frame');
 
-            this.nextLevelButton = this.add.image(600, 260, 'next-level-button')
+            this.nextLevelButton = this.add.image(640, 330, 'next-level-button')
             .setInteractive();
 
-            this.restartButton = this.add.image(600, 360, 'restart-button')
+            this.restartButton = this.add.image(640, 430, 'restart-button')
             .setInteractive();
 
-            this.exitButton = this.add.image(600, 460, 'exit-button')
+            this.exitButton = this.add.image(640, 530, 'exit-button')
             .setInteractive();
             
             this.nextLevelButton.on('pointerover', () => {

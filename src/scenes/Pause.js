@@ -11,19 +11,19 @@ export default class Pause extends Phaser.Scene {
     }
 
     create() {
-        this.add.image(600, 290, 'pause-frame');
+        this.add.image(640, 350, 'pause-frame');
 
-        this.resumeButton = this.add.image(1194, 6, 'resume-button')
+        this.resumeButton = this.add.image(1274, 6, 'resume-button')
         .setOrigin(1, 0)
         .setInteractive();
 
-        this.resumeButton2 = this.add.image(600, 200, 'resume-button-2')
+        this.resumeButton2 = this.add.image(640, 270, 'resume-button-2')
         .setInteractive();
 
-        this.restartButton = this.add.image(600, 300, 'restart-button')
+        this.restartButton = this.add.image(640, 370, 'restart-button')
         .setInteractive();
 
-        this.exitButton = this.add.image(600, 400, 'exit-button')
+        this.exitButton = this.add.image(640, 470, 'exit-button')
         .setInteractive();
 
         this.resumeButton.on('pointerover', () => {

@@ -13,15 +13,14 @@ const JUMP_SPEED = 650;
 const GRAVITY = 600;
 const BULLET_SPEED = 350;
 
-export default class Level1 extends Phaser.Scene {
+export default class Level2 extends Phaser.Scene {
 
     isStanding
     canShoot = true
     vol = 0.1
-    isCompleted = false
 
     constructor() {
-        super("level-1");
+        super("level-2");
     }
     
     init() {
@@ -40,7 +39,7 @@ export default class Level1 extends Phaser.Scene {
         .setPipeline('Light2D');
 
         // BG Layers
-        const map = this.make.tilemap({ key: 'map-01' });
+        const map = this.make.tilemap({ key: 'map-02' });
         const tileset = map.addTilesetImage('tileset', 'tileset-1');
 
         // Rain effect
@@ -57,7 +56,6 @@ export default class Level1 extends Phaser.Scene {
             // quantity: 4,
             blendMode: 'ADD'
         });
-        //Rain
         // var particles = this.add.particles('rain')
         // .setPipeline('Light2D');
 
@@ -72,64 +70,12 @@ export default class Level1 extends Phaser.Scene {
         //     blendMode: 'ADD'
         // });
         
-        // this.__elastic1 = new Elastic(this, 2300, 950, '');
-        // this.physics.add.overlap(
-        //     this.player,
-        //     this.__elastic1,
-        //     function (_player, _elastic) {
-        //         if (_player.body.velocity.y >= 0) {
-        //             _elastic.onJump();
-                    
-        //             _player.anims.play('anim-mossy-jump', true);
-        //             _player.y -= 1;
-        //             _player.setVelocityY(-JUMP_SPEED * 1.5);
-        //         }
-        //     }
-        // );
-        
         // Player
 
-        this.player = new Mossy(this, 700, 700);
-        // this.player = new Mossy(this, 2900, 580);
-
-        this.lights.addLight(3740, 620, 100)
-        .setColor(0x75d9a5)
-        .setIntensity(2);
-
-        this.gate = this.physics.add.sprite(3740, 620, '');
-        this.gate.anims.play('anim-effect-1', true);
-        this.gate.anims.yoyo = true;
-        this.gate.body.setSize(80, 80).setOffset(60, 60);
-        var scene = this;
-        this.physics.add.overlap(
-            this.player,
-            this.gate,
-            function (_player, _gate) {
-                if (scene.isGameOver) return;
-                
-                else {
-                    scene.isGameOver = true;
-                    setTimeout(() => { 
-                        // scene.scene.launch('level-2');
-                        
-                        scene.scene.pause();
-                        scene.sound.removeAll();
-                        scene.scene.bringToTop('game-over');    
-                        scene.scene.launch('game-over', {
-                            sceneKey: 'level-1',
-                            hasWon: true
-                        });
-                    }, 500);
-                }
-            }
-        );
+        this.player = new Mossy(this, 600, 800);
 
         // light
-        var light2 = this.lights.addLight(700, 300, 1500)
-        .setColor(0x75d9a5)
-        .setIntensity(2);
-
-        var light = this.lights.addLight(2000, 600, 40)
+        var light = this.lights.addLight(1900, 600, 40)
         .setColor(0x75d9a5)
         .setIntensity(2);
         light.rate = 1;
@@ -138,7 +84,7 @@ export default class Level1 extends Phaser.Scene {
             duration: 2500,
             loop: -1,
             yoyo: true,
-            x: {from: 2000, to: 2050},
+            x: {from: 1900, to: 1950},
             y: {from: 600, to: 630},
             onYoyo: function () { 
                 // console.log('onYoyo'); 
@@ -149,34 +95,17 @@ export default class Level1 extends Phaser.Scene {
                 light.radius += light.rate;
             }
         });
-
-        
-        var light3 = this.lights.addLight(4200, 500, 40)
+        this.blueFlower0 = this.add.sprite(160, 660, '')
+        .setScale(0.2)
+        .setOrigin(0.5)
+        .setFlipX(1)
+        .setAngle(-20)
+        .setPipeline('Light2D');
+        this.blueFlower0.anims.play('anim-blue-flower-2', true);
+        this.lightFlower = this.lights.addLight(180, 630, 600)
         .setColor(0x75d9a5)
         .setIntensity(2);
-        light3.rate = 1;
-        var tween = this.tweens.add({
-            targets: light3,
-            duration: 2500,
-            loop: -1,
-            yoyo: true,
-            x: {from: 4200, to: 4250},
-            y: {from: 500, to: 530},
-            onYoyo: function () { 
-                // console.log('onYoyo'); 
-                light3.rate *= -1;
-            },
-            onUpdate: function () { 
-                // console.log('onUpdate'); 
-                light3.radius += light3.rate;
-            }
-        });
 
-        // this.__thorn3 = this.add.image(2500, 950, 'scene-decoration', 'Thorn_3.png').setPipeline('Light2D').setScale(0.75);
-        // this.__thorn4 = this.add.image(2600, 950, 'scene-decoration', 'Thorn_3.png').setPipeline('Light2D').setScale(0.75);
-        // this.__flower1 = this.add.image(1800, 800, 'scene-decoration', 'Moss_6.png').setPipeline('Light2D');
-        // this.__flower2 = this.add.image(1900, 800, 'scene-decoration', 'Moss_5.png').setPipeline('Light2D');
-        
         this.blueFlower1 = this.add.sprite(2910, 860, '')
         .setScale(0.2)
         .setOrigin(0.5)
@@ -187,6 +116,67 @@ export default class Level1 extends Phaser.Scene {
         this.lightFlower = this.lights.addLight(2930, 830, 600)
         .setColor(0x75d9a5)
         .setIntensity(2);
+        
+        // thorn
+        // this.__thorn1 = this.add.image(1200, 800, 'scene-decoration', 'Thorn_1.png').setPipeline('Light2D');
+        // this.__thorn2 = this.add.image(1300, 800, 'scene-decoration', 'Thorn_2.png').setPipeline('Light2D');
+        this.__thorn4 = new Thorn(this, 3500, 950, 'scene-decoration', 'Thorn_3.png');
+
+        this.__elastic1 = new Elastic(this, 2480, 950, '');
+        this.physics.add.overlap(
+            this.player,
+            this.__elastic1,
+            function (_player, _elastic) {
+                if (_player.body.velocity.y >= 0) {
+                    _elastic.onJump();
+                    
+                    _player.anims.play('anim-mossy-jump', true);
+                    _player.y -= 1;
+                    _player.setVelocityY(-JUMP_SPEED * 1.5);
+                }
+            }
+        );
+
+        // this.__thorn3 = this.add.image(2500, 950, 'scene-decoration', 'Thorn_3.png').setPipeline('Light2D').setScale(0.75);
+        // this.__thorn4 = this.add.image(2600, 950, 'scene-decoration', 'Thorn_3.png').setPipeline('Light2D').setScale(0.75);
+        // this.__flower1 = this.add.image(1800, 800, 'scene-decoration', 'Moss_6.png').setPipeline('Light2D');
+        // this.__flower2 = this.add.image(1900, 800, 'scene-decoration', 'Moss_5.png').setPipeline('Light2D');
+
+        // slime enemies
+        this.slimeEnemy = [];
+        // this.__slime = this.add.sprite(1200, 920, '').setPipeline('Light2D');;
+        // this.__slime.anims.play('anim-slime-orange');
+        // this.slimeEnemy.push(new SlimeEnemy(this, 6580, 400));
+        // this.slimeEnemy.push(new SlimeEnemy(this, 7000, 400));
+        // this.slimeEnemy.push(new SlimeEnemy(this, 2600, 400));
+        // this.slimeEnemy.push(new SlimeEnemy(this, 1800, 280));
+        // this.slimeEnemy.push(new SlimeEnemy(this, 1200, 400));
+        // this.slimeEnemy.push(new SlimeEnemy(this, 4600, 400));
+        // this.slimeEnemy[0].setRangeMove(1286, 600, 1, 0, 50, 0);
+        // this.slimeEnemy[1].setRangeMove(6730, 7300, 1, 0, -50, 0);
+        // this.slimeEnemy[2].setRangeMove(2350, 2850, 1, 0, 50, 0);
+        // this.slimeEnemy[3].setRangeMove(1600, 1980, 1, 0, -50, 0);
+        // this.slimeEnemy[4].setRangeMove(1200, 1550, 1, 0, 50, 0);
+        // this.slimeEnemy[5].setRangeMove(4300, 4900, 1, 0, 50, 0);
+
+        // // T-Rex enemies
+        // this.tRexEnemy = new TRex(this, 10800, 400);
+        // this.tRexEnemy.setRangeMove(10500, 11240, 1, 0, 300, 0);
+        // // Skeleton enemies
+        // this.skeletonEnemy = new Skeleton(this, 14800, 400);
+        // this.skeletonEnemy.setRangeMove(14700, 14900, 1, 0, 100, 0);
+        // hoang code end
+        
+        // this.blueFlower2 = this.add.sprite(340, 420, '')
+        // .setScale(0.2)
+        // .setOrigin(0.5)
+        // .setFlipX(1)
+        // .setAngle(-20)
+        // .setPipeline('Light2D');
+        // this.blueFlower2.anims.play('anim-blue-flower-2', true);
+        // this.lightFlower = this.lights.addLight(360, 390, 500)
+        // .setColor(0x75d9a5)
+        // .setIntensity(1);
 
         // this.plant3 = this.add.sprite(50, 290, '')
         // .setOrigin(0.5)
@@ -195,15 +185,12 @@ export default class Level1 extends Phaser.Scene {
         // .setPipeline('Light2D');
         // this.plant3.anims.play('anim-plant-3', true);
 
-        this.plant2 = this.add.sprite(190, 760, '')
-        .setOrigin(0.5)
-        .setScale(0.2)
-        .setFlipX(1)
-        .setPipeline('Light2D');
-        this.plant2.anims.play('anim-blue-flower-2', true);
-        this.lights.addLight(220, 730, 600)
-        .setColor(0x75d9a5)
-        .setIntensity(2);
+        // this.plant2 = this.add.sprite(1470, 420, '')
+        // .setOrigin(0.5)
+        // .setScale(0.3)
+        // .setFlipX(1)
+        // .setPipeline('Light2D');
+        // this.plant2.anims.play('anim-plant-2', true);
 
         // this.plant4 = this.add.sprite(1850, 320, '')
         // .setOrigin(0.5)
@@ -415,18 +402,18 @@ export default class Level1 extends Phaser.Scene {
         //     }, 100);
         // });
 
-        // // Thorn layer
-        // const layerThorn = map.createFromObjects('Thorn', [
-        //     { gid: 818, key: 'scene-decoration', frame: 'Thorn_1.png' },
-        //     { gid: 819, key: 'scene-decoration', frame: 'Thorn_2.png' },
-        //     { gid: 820, key: 'scene-decoration', frame: 'Thorn_3.png' },
-        //     { gid: 821, key: 'scene-decoration', frame: 'Thorn_4.png' },
-        //     { gid: 822, key: 'scene-decoration', frame: 'Thorn_5.png' },
-        //     { gid: 823, key: 'scene-decoration', frame: 'Thorn_6.png' },
-        // ]);
-        // for (var i = 0; i < layerThorn.length; i++) {
-        //     layerThorn[i].setPipeline('Light2D');
-        // }
+        // Thorn layer
+        const layerThorn = map.createFromObjects('Thorn', [
+            { gid: 818, key: 'scene-decoration', frame: 'Thorn_1.png' },
+            { gid: 819, key: 'scene-decoration', frame: 'Thorn_2.png' },
+            { gid: 820, key: 'scene-decoration', frame: 'Thorn_3.png' },
+            { gid: 821, key: 'scene-decoration', frame: 'Thorn_4.png' },
+            { gid: 822, key: 'scene-decoration', frame: 'Thorn_5.png' },
+            { gid: 823, key: 'scene-decoration', frame: 'Thorn_6.png' },
+        ]);
+        for (var i = 0; i < layerThorn.length; i++) {
+            layerThorn[i].setPipeline('Light2D');
+        }
 
         // // Plant layer
         // const layerPlant = map.createFromObjects('Plant', [
@@ -559,75 +546,132 @@ export default class Level1 extends Phaser.Scene {
         .setImmovable(1)
         .setPipeline('Light2D');
         this.physics.add.collider(this.player, this.map_collider_2);
+
+        // Set Thorn body collider
+        // this.thorn_collider_1 = this.physics.add.sprite(800, 500, 'back-button')
+        // .setSize(500, 10)
+        // .setVisible(0);
+        // this.physics.add.overlap(this.player, this.thorn_collider_1, () => {
+        //     this.player.isHurt = true;
+        //     this.player.hurt(2);
+        //     this.player.setVelocityY(-JUMP_SPEED);
+        //     this.player.anims.play('anim-mossy-jump', true);
+        // });
+        // this.thorn_collider_2 = this.physics.add.sprite(5210, 500, 'back-button')
+        // .setSize(500, 10)
+        // .setVisible(0);
+        // this.physics.add.overlap(this.player, this.thorn_collider_2, () => {
+        //     this.player.isHurt = true;
+        //     this.player.hurt(2);
+        //     this.player.setVelocityY(-JUMP_SPEED);
+        //     this.player.anims.play('anim-mossy-jump', true);
+        // });
+        // this.thorn_collider_3 = this.physics.add.sprite(3500, 510, 'back-button')
+        // .setSize(1500, 10)
+        // .setVisible(0);
+        // this.physics.add.overlap(this.player, this.thorn_collider_3, () => {
+        //     this.player.isHurt = true;
+        //     this.player.hurt(2);
+        //     this.player.setVelocityY(-JUMP_SPEED);
+        //     this.player.anims.play('anim-mossy-jump', true);
+        // });
+        // this.thorn_collider_4 = this.physics.add.sprite(11500, 510, 'back-button')
+        // .setSize(800, 10)
+        // .setVisible(0);
+        // this.physics.add.overlap(this.player, this.thorn_collider_4, () => {
+        //     this.player.isHurt = true;
+        //     this.player.hurt(2);
+        //     this.player.setVelocityY(-JUMP_SPEED);
+        //     this.player.anims.play('anim-mossy-jump', true);
+        // });
+        // this.thorn_collider_5 = this.physics.add.sprite(9320, 520, 'back-button')
+        // .setSize(500, 10)
+        // .setVisible(0);
+        // this.physics.add.overlap(this.player, this.thorn_collider_5, () => {
+        //     this.player.isHurt = true;
+        //     this.player.hurt(2);
+        //     this.player.setVelocityY(-JUMP_SPEED);
+        //     this.player.anims.play('anim-mossy-jump', true);
+        // });
+
+        // GUI
+        // this.add.image(4, 4, 'infor-frame')
+        // .setOrigin(0)
+        // .setScrollFactor(0);
+        // this.healthBar = this.add.image(184, 42, 'health-bar')
+        // .setOrigin(0, 0.5)
+        // .setScrollFactor(0);
+        // Button 
+        // this.pauseButton = this.add.image(1194, 6, 'pause-button')
+        // .setScrollFactor(0)
+        // .setOrigin(1, 0);
+        // this.pauseButton.setInteractive();
+        // this.pauseButton.on('pointerover', () => {
+        //     this.pauseButton.setTexture('pause-button-hover');
+        // });
+        // this.pauseButton.on('pointerdown', () => {
+        //     this.pauseButton.setTexture('pause-button-click');
+        // });
+        // this.pauseButton.on('pointerup', () => {
+        //     this.pauseButton.setTexture('pause-button');
+        //     this.scene.pause();
+        //     this.sound.pauseAll();
+        //     this.scene.bringToTop('pause');
+        //     this.scene.launch('pause', {
+        //         sceneKey: 'level-01',
+        //         playingMusic: !(this.musicButton.texture.key == 'music-button-off')
+        //     });
+        // });
+        // this.pauseButton.on('pointerout', () => {
+        //     this.pauseButton.setTexture('pause-button');
+        // });
         
+        // this.musicButton = this.add.image(1118, 6, 'music-button')
+        // .setScrollFactor(0)
+        // .setOrigin(1, 0);
+        // this.musicButton.setInteractive();
+        // this.musicButton.on('pointerover', () => {
+        //     if (this.musicButton.texture.key == 'music-button') {
+        //         this.musicButton.setTexture('music-button-hover');
+        //     }
+        //     else if (this.musicButton.texture.key == 'music-button-off') {
+        //         this.musicButton.setTexture('music-button-off-hover');
+        //     }
+        // });
+        // this.musicButton.on('pointerdown', () => {
+        //     if (this.musicButton.texture.key == 'music-button-hover') {   
+        //         this.musicButton.setTexture('music-button-click');
+        //     }
+        //     else if (this.musicButton.texture.key == 'music-button-off-hover') {   
+        //         this.musicButton.setTexture('music-button-off-click');
+        //     }
+        // });
+        // this.musicButton.on('pointerup', () => {
+        //     if (this.musicButton.texture.key == 'music-button-click') {
+        //         this.sound.pauseAll();
+        //         this.musicButton.setTexture('music-button-off');
+        //     }
+        //     else if (this.musicButton.texture.key == 'music-button-off-click') {
+        //         this.sound.resumeAll();
+        //         this.musicButton.setTexture('music-button');
+        //     }
+        // });
+        // this.musicButton.on('pointerout', () => {
+        //     if (this.musicButton.texture.key == 'music-button-hover') {
+        //         this.musicButton.setTexture('music-button');
+        //     }
+        //     else if (this.musicButton.texture.key == 'music-button-off-hover') {
+        //         this.musicButton.setTexture('music-button-off');
+        //     }
+        // });
+
+        // Physical collision detection
+        // Player
         this.physics.add.collider(this.player, layerGround, () => {
             if (this.player.body.onFloor()) this.isStanding = true;
         });
         this.physics.add.collider(this.player, layerPlatform, () => {
             if (this.player.body.onFloor()) this.isStanding = true;
-        });
-        //Button 
-        this.pauseButton = this.add.image(1274, 6, 'pause-button')
-        .setScrollFactor(0)
-        .setOrigin(1, 0);
-        this.pauseButton.setInteractive();
-        this.pauseButton.on('pointerover', () => {
-            this.pauseButton.setTexture('pause-button-hover');
-        });
-        this.pauseButton.on('pointerdown', () => {
-            this.pauseButton.setTexture('pause-button-click');
-        });
-        this.pauseButton.on('pointerup', () => {
-            this.pauseButton.setTexture('pause-button');
-            this.scene.pause();
-            this.sound.pauseAll();
-            this.scene.bringToTop('pause');
-            this.scene.launch('pause', {
-                sceneKey: 'level-1',
-                playingMusic: !(this.musicButton.texture.key == 'music-button-off')
-            });
-        });
-        this.pauseButton.on('pointerout', () => {
-            this.pauseButton.setTexture('pause-button');
-        });
-        
-        this.musicButton = this.add.image(1198, 6, 'music-button')
-        .setScrollFactor(0)
-        .setOrigin(1, 0);
-        this.musicButton.setInteractive();
-        this.musicButton.on('pointerover', () => {
-            if (this.musicButton.texture.key == 'music-button') {
-                this.musicButton.setTexture('music-button-hover');
-            }
-            else if (this.musicButton.texture.key == 'music-button-off') {
-                this.musicButton.setTexture('music-button-off-hover');
-            }
-        });
-        this.musicButton.on('pointerdown', () => {
-            if (this.musicButton.texture.key == 'music-button-hover') {   
-                this.musicButton.setTexture('music-button-click');
-            }
-            else if (this.musicButton.texture.key == 'music-button-off-hover') {   
-                this.musicButton.setTexture('music-button-off-click');
-            }
-        });
-        this.musicButton.on('pointerup', () => {
-            if (this.musicButton.texture.key == 'music-button-click') {
-                this.sound.pauseAll();
-                this.musicButton.setTexture('music-button-off');
-            }
-            else if (this.musicButton.texture.key == 'music-button-off-click') {
-                this.sound.resumeAll();
-                this.musicButton.setTexture('music-button');
-            }
-        });
-        this.musicButton.on('pointerout', () => {
-            if (this.musicButton.texture.key == 'music-button-hover') {
-                this.musicButton.setTexture('music-button');
-            }
-            else if (this.musicButton.texture.key == 'music-button-off-hover') {
-                this.musicButton.setTexture('music-button-off');
-            }
         });
 
         // Music
@@ -639,6 +683,87 @@ export default class Level1 extends Phaser.Scene {
         //     loop: true,
         //     volume: 0.2
         // });
+
+        // hoang code
+
+        // add overlap
+
+        // Slime
+        // for (var i = 0; i < this.slimeEnemy.length; i++) {
+        //     this.physics.add.overlap(
+        //         this.player.weapon,
+        //         this.slimeEnemy[i],
+        //         this.killEnemy,
+        //         undefined,
+        //         this
+        //     );
+        //     this.physics.add.overlap(
+        //         this.slimeEnemy[i],
+        //         this.player,
+        //         () => {
+        //             this.player.isHurt = true;
+        //             this.player.hurt(2);
+        //         },
+        //         undefined,
+        //         this.slimeEnemy[i]
+        //     );
+        // }
+
+        // T-Rex
+        // this.physics.add.overlap(
+        //     this.player.weapon,
+        //     this.tRexEnemy,
+        //     this.killEnemy,
+        //     undefined,
+        //     this
+        // );
+        // this.physics.add.overlap(
+        //     this.tRexEnemy,
+        //     this.player,
+        //     () => {
+        //         this.player.isHurt = true;
+        //         this.player.isStun = true;
+        //         this.player.hurt(4);
+        //         const direct = this.tRexEnemy.flipX ? 1 : -1;
+        //         this.player.setVelocity(3 * RUN_SPEED * direct, - GRAVITY * 0.5);
+        //         setTimeout(() => {
+        //             this.player.isStun = false;
+        //         }, 800);
+        //     }, 
+        //     undefined,
+        //     this.tRexEnemy
+        // );
+
+        // Skeleton
+        // this.physics.add.overlap(
+        //     this.player.weapon,
+        //     this.skeletonEnemy,
+        //     this.killEnemy, 
+        //     undefined,
+        //     this
+        // );
+
+        // this.physics.add.overlap(
+        //     this.skeletonEnemy.weapon,
+        //     this.player,
+        //     () => {
+        //         // if (child.weapon.back == 1) return
+        //         this.skeletonEnemy.weapon.go = 0;
+        //         this.skeletonEnemy.weapon.back = 0;
+        //         this.skeletonEnemy.weapon.stay = 1;
+        //         this.skeletonEnemy.shootExact = false;
+        //         this.skeletonEnemy.weapon.setStay();
+        //         this.skeletonEnemy.weapon.setVisible(false);
+        //         this.skeletonEnemy.weapon.x = this.skeletonEnemy.x;
+        //         this.skeletonEnemy.weapon.y = this.skeletonEnemy.y;
+        //         this.player.isHurt = true;
+        //         this.player.hurt(4);
+        //     }, // called on overlap
+        //     undefined,
+        //     this.skeletonEnemy.weapon
+        // );
+
+        // hoang code end
 
         // Bound the camera
         this.cameras.main.setBounds(0, 0, 16000, 3080)
@@ -673,8 +798,94 @@ export default class Level1 extends Phaser.Scene {
         // Background scrolling
         this.bg.tilePositionX = this.cameras.main.scrollX;
 
+        // hoang code
+
+        // Player collect weapon when enemy is shooted exactly
+        // if (this.player.shootExact == true) {
+        //     this.player.goBack(this.player.x, this.player.y);
+        // }
+
+        // Player make shooting
+        // this.player.makeShoot(this, this.player.x, this.player.y);
+
         // Update statement of the player and weapon
         this.player._update(this, this.player.x, this.player.y);
+
+        // for (var i = 0; i < this.slimeEnemy.length; i++) {
+        //     if (!this.slimeEnemy[i].active || this.slimeEnemy[i].health <= 0) continue;
+        //     if (Math.abs(this.slimeEnemy[i].x - this.player.x) < 1200
+        //     && Math.abs(this.slimeEnemy[i].y - this.player.y) < 1200) {
+        //         // set enemy light and health bar
+        //         this.slimeEnemy[i].setLight(this.slimeEnemy[i].x, this.slimeEnemy[i].y);
+        //         this.slimeEnemy[i].stayHealthBar(this.slimeEnemy[i].x, this.slimeEnemy[i].y);
+        //         // set the enemy looks player
+        //         this.slimeEnemy[i].setFace(this.slimeEnemy[i].x, this.player.x);
+        //         // set enemy auto running
+        //         this.slimeEnemy[i].setMove(this.slimeEnemy[i].x, this.slimeEnemy[i].y);
+        //     } else {
+        //         this.slimeEnemy[i].setVelocityX(0);
+        //         this.slimeEnemy[i].first = 0;
+        //     }
+        // }
+
+        // Set T-Rex activities
+        // if (this.tRexEnemy.active && this.tRexEnemy.health > 0) {
+        //     if (Math.abs(this.tRexEnemy.x - this.player.x) < 1200 
+        //     && Math.abs(this.tRexEnemy.y - this.player.y) < 1200) {
+        //         // set enemy light and health bar
+        //         this.tRexEnemy.setLight(this.tRexEnemy.x, this.tRexEnemy.y);
+        //         this.tRexEnemy.stayHealthBar(this.tRexEnemy.x, this.tRexEnemy.y);
+
+        //         // set enemy auto running
+        //         this.tRexEnemy.setMove(this.tRexEnemy.x, this.tRexEnemy.y);
+
+        //         if (Math.abs(this.tRexEnemy.x - this.player.x) < 200) {
+        //             this.tRexEnemy.anims.play('anim-t-rex-attack', true);
+        //         } else {
+        //             this.tRexEnemy.anims.play('anim-t-rex-walk', true);
+        //         }
+        //     } else {
+        //         this.tRexEnemy.setVelocityX(0);
+        //         this.tRexEnemy.first = 0;
+        //     }
+        // }
+
+        // if (this.skeletonEnemy.active && this.skeletonEnemy.health > 0) {
+        //     if (Math.abs(this.skeletonEnemy.x - this.player.x) < 1200
+        //     && Math.abs(this.skeletonEnemy.y - this.player.y) < 1200) {
+        //         // set enemy light and health bar
+        //         this.skeletonEnemy.setLight(this.skeletonEnemy.x, this.skeletonEnemy.y);
+        //         this.skeletonEnemy.stayHealthBar(this.skeletonEnemy.x, this.skeletonEnemy.y);
+        //         this.skeletonEnemy.setFace(this.skeletonEnemy.x, this.player.x);
+        //         this.skeletonEnemy.setMove(this.skeletonEnemy.x, this.skeletonEnemy.y);
+        //         this.skeletonEnemy.makeShoot(
+        //             this, 
+        //             this.skeletonEnemy.x, 
+        //             this.skeletonEnemy.y, 
+        //             this.player.x, 
+        //             this.player.y
+        //         );
+        //         if (this.skeletonEnemy.shootThunder == false) {
+        //             setTimeout(() => {
+        //                 if (this.player.active && !this.isGameOver) {
+        //                     this.skeletonEnemy.shootThunder = true;
+        //                     this.skeletonEnemy.thunder.x = this.player.x;
+        //                     this.skeletonEnemy.thunder.y = this.player.y;
+        //                     this.skeletonEnemy.thunder.setVisible(true);
+        //                     this.player.isHurt = true;
+        //                     this.player.hurt(3);
+        //                     setTimeout(() => {
+        //                         this.skeletonEnemy.thunder.setVisible(false);
+        //                     }, 2000);
+        //                 }
+        //             }, 5000);
+        //         }
+        //     } else {
+        //         this.skeletonEnemy.setVelocityX(0);
+        //         this.skeletonEnemy.first = 0;
+        //         this.skeletonEnemy.shootThunder = false;
+        //     }
+        // }
 
         if (this.player.health <= 0) {
             if (this.player.active) this.player.anims.play('anim-death', true);
@@ -685,7 +896,7 @@ export default class Level1 extends Phaser.Scene {
                     this.sound.removeAll();
                     this.scene.bringToTop('game-over');    
                     this.scene.launch('game-over', {
-                        sceneKey: 'level-1',
+                        sceneKey: 'level-01',
                         hasWon: false
                     });
                 }, 2000);
@@ -698,12 +909,12 @@ export default class Level1 extends Phaser.Scene {
         }
 
         // Dash
-        // if (this.cursors.down.isDown) {
-        //     this.player.anims.play('anim-mossy-dash', true);
-        //     const direct = this.player.flipX ? -1 : 1;
-        //     this.player.setVelocityX(RUN_SPEED * 3 * direct);
-        //     return;
-        // }
+        if (this.cursors.down.isDown) {
+            this.player.anims.play('anim-mossy-dash', true);
+            const direct = this.player.flipX ? -1 : 1;
+            this.player.setVelocityX(RUN_SPEED * 3 * direct);
+            return;
+        }
         if (!this.cursors.left.isDown && !this.cursors.right.isDown) {
             if (this.player.isImmortal) this.player.anims.play('anim-mossy-hurt', true);
             else if (this.isStanding) this.player.anims.play('anim-mossy-idle', true);
@@ -729,4 +940,34 @@ export default class Level1 extends Phaser.Scene {
             this.player.flipX = false;
         }
     }
+
+    // hoang code
+
+    // Callback function when player shoot enemy
+    // killEnemy(player, enemy) {
+    //     this.player.weapon.anims.play('anim-fireball-blue-explode');
+    //     if (this.player.weapon.stay == 1) return;
+    //     enemy.health -= 1;
+    //     if (enemy.health == 0) {
+    //         this.physics.world.disableBody(enemy.body);
+    //         enemy.healthBar.setVisible(0);
+    //         enemy.healthBarBorder.setVisible(0);
+    //         enemy.setDestroy();
+    //         if (SkeletonEnemy.prototype.isPrototypeOf(enemy) && !this.isGameOver) {
+    //             this.isGameOver = true;
+    //             setTimeout(() => {
+    //                 this.scene.pause();
+    //                 this.sound.removeAll();
+    //                 this.scene.bringToTop('game-over');    
+    //                 this.scene.launch('game-over', {
+    //                     sceneKey: 'level-01',
+    //                     hasWon: true
+    //                 });
+    //             }, 1500);
+    //         }
+    //     }
+    //     this.player.shootExact = true;
+    //     this.player.goBack(this.player.x, this.player.y)
+    // }
+    // hoang code end
 }

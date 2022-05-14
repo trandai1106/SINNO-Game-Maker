@@ -15,18 +15,18 @@ export default class Menu extends Phaser.Scene {
 
     create() {
         this.bg = this.add.tileSprite(0, 0, 0, 0, 'background-05')
-        .setDisplaySize(1200, 580)
+        .setDisplaySize(1280, 720)
         .setOrigin(0);
 
-        this.add.image(600, 290, 'menu-frame');
+        this.add.image(640, 360, 'menu-frame');
 
-        this.playButton = this.add.image(600, 210, 'play-button')
+        this.playButton = this.add.image(640, 280, 'play-button')
         .setInteractive();
 
-        this.guideButton = this.add.image(600, 310, 'guide-button')
+        this.guideButton = this.add.image(640, 380, 'guide-button')
         .setInteractive();
 
-        this.aboutButton = this.add.image(600, 410, 'about-button')
+        this.aboutButton = this.add.image(640, 480, 'about-button')
         .setInteractive();
 
         this.playButton.on('pointerover', () => {

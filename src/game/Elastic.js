@@ -13,9 +13,9 @@ export default class Elastic extends Phaser.Physics.Arcade.Sprite {
         
         this.setScale(0.4)
         
-        // this.lightPlayer = scene.lights.addLight(x, y, 900)
-        // .setColor(0x75d9a5)
-        // .setIntensity(2);
+        this.lightPlayer = scene.lights.addLight(x, y, 900)
+        .setColor(0x75d9a5)
+        .setIntensity(2);
 
         // Add player to physics world
         scene.physics.add.existing(this);

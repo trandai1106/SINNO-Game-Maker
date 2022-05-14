@@ -88,9 +88,11 @@ export default class Preload extends Phaser.Scene {
 
         // Particle system
         this.load.image('ps-seed', 'assets/sprites/Environment/ParticleSystem/particle-system-seed.png');
+        this.load.image('rain', 'assets/sprites/Environment/ParticleSystem/rain.png');
 
         // Load platform tilemap
         this.load.tilemapTiledJSON('map-01', 'assets/sprites/Environment/MossyTileset/map-01.json');
+        this.load.tilemapTiledJSON('map-02', 'assets/sprites/Environment/MossyTileset/map-02.json');
         
         this.load.image('tileset-1', 'assets/sprites/Environment/MossyTileset/Mossy - TileSet.png');
         
@@ -122,14 +124,14 @@ export default class Preload extends Phaser.Scene {
         });
 
         // Load plant spritesheets
-        // this.load.spritesheet('blue-flower-1', 'assets/sprites/Environment/Plant Animations/blue-flower-1.png', {
-        //     frameWidth: 768,
-        //     frameHeight: 768
-        // });
-        // this.load.spritesheet('blue-flower-2', 'assets/sprites/Environment/Plant Animations/blue-flower-2.png', {
-        //     frameWidth: 768,
-        //     frameHeight: 768
-        // });
+        this.load.spritesheet('blue-flower-1', 'assets/sprites/Environment/Plant Animations/blue-flower-1.png', {
+            frameWidth: 768,
+            frameHeight: 768
+        });
+        this.load.spritesheet('blue-flower-2', 'assets/sprites/Environment/Plant Animations/blue-flower-2.png', {
+            frameWidth: 768,
+            frameHeight: 768
+        });
         // this.load.spritesheet('plant-2', 'assets/sprites/Environment/Plant Animations/plant-2.png', {
         //     frameWidth: 512,
         //     frameHeight: 512
@@ -222,10 +224,10 @@ export default class Preload extends Phaser.Scene {
         //     frameWidth: 192,
         //     frameHeight: 192
         // });
-        // this.load.spritesheet('death', 'assets/sprites/Effect/death.png', {
-        //     frameWidth: 192,
-        //     frameHeight: 192
-        // });
+        this.load.spritesheet('effect-1', 'assets/sprites/Effect/effect1.png', {
+            frameWidth: 192,
+            frameHeight: 192
+        });
         // this.load.spritesheet('shield', 'assets/sprites/Effect/shield.png', {
         //     frameWidth: 192,
         //     frameHeight: 192
@@ -287,16 +289,16 @@ export default class Preload extends Phaser.Scene {
         });
 
         // Plant animations
-        // this.anims.create({ key: "anim-blue-flower-1",
-        //     frameRate: 16,
-        //     frames: this.anims.generateFrameNumbers("blue-flower-1", { start: 0, end: 59 }),
-        //     repeat: -1
-        // });
-        // this.anims.create({ key: "anim-blue-flower-2",
-        //     frameRate: 18,
-        //     frames: this.anims.generateFrameNumbers("blue-flower-2", { start: 0, end: 59 }),
-        //     repeat: -1
-        // });
+        this.anims.create({ key: "anim-blue-flower-1",
+            frameRate: 16,
+            frames: this.anims.generateFrameNumbers("blue-flower-1", { start: 0, end: 59 }),
+            repeat: -1
+        });
+        this.anims.create({ key: "anim-blue-flower-2",
+            frameRate: 18,
+            frames: this.anims.generateFrameNumbers("blue-flower-2", { start: 0, end: 59 }),
+            repeat: -1
+        });
         // // this.anims.create({ key: "anim-plant-1",
         // //     frameRate: 18,
         // //     frames: this.anims.generateFrameNumbers("plant-1", { start: 0, end: 89 }),
@@ -422,11 +424,11 @@ export default class Preload extends Phaser.Scene {
         //     frames: this.anims.generateFrameNumbers("heal", { start: 0, end: 14 }),
         //     repeat: 0
         // });
-        // this.anims.create({ key: "anim-death",
-        //     frameRate: 12,
-        //     frames: this.anims.generateFrameNumbers("death", { start: 0, end: 19 }),
-        //     repeat: 0
-        // });
+        this.anims.create({ key: "anim-effect-1",
+            frameRate: 12,
+            frames: this.anims.generateFrameNumbers("effect-1", { start: 0, end: 19 }),
+            repeat: -1
+        });
         // this.anims.create({ key: "anim-shield",
         //     frameRate: 15,
         //     frames: this.anims.generateFrameNumbers("shield", { start: 0, end: 14 }),
@@ -453,7 +455,7 @@ export default class Preload extends Phaser.Scene {
         //     repeat: -1
         // });
 
-        // this.scene.start('menu');
-        this.scene.start('level-1');
+        this.scene.start('menu');
+        // this.scene.start('level-1');
     }
 }

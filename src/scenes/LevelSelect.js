@@ -15,18 +15,24 @@ export default class LevelSelect extends Phaser.Scene {
 
     create() {
         this.bg = this.add.tileSprite(0, 0, 0, 0, 'background-05')
-        .setDisplaySize(1200, 580)
+        .setDisplaySize(1280, 720)
         .setOrigin(0);
 
-        this.add.image(600, 290, 'select-level-frame');
+        this.add.image(640, 380, 'select-level-frame');
 
-        this.level01Button = this.add.image(435, 250, 'level-01-button')
+        this.level01Button = this.add.image(475, 320, 'level-01-button')
         .setInteractive();
 
-        this.levelComingSoonButton = this.add.image(535, 250, 'level-coming-soon-button')
+        // this.level02Button = this.add.image(575, 320, 'level-01-button')
+        // .setInteractive();
+
+        // this.levelComingSoonButton = this.add.image(675, 320, 'level-coming-soon-button')
+        // .setInteractive();
+        
+        this.levelComingSoonButton = this.add.image(575, 320, 'level-coming-soon-button')
         .setInteractive();
 
-        this.backButton = this.add.image(600, 480, 'back-button')
+        this.backButton = this.add.image(640, 550, 'back-button')
         .setScale(0.75)
         .setInteractive();
 
@@ -40,9 +46,23 @@ export default class LevelSelect extends Phaser.Scene {
             this.level01Button.setTexture('level-01-button-click');
         });
         this.level01Button.on('pointerup', () => {
-            this.scene.bringToTop('level-01');    
-            this.scene.start('level-01');
+            this.scene.bringToTop('level-1');    
+            this.scene.start('level-1');
         });
+
+        // this.level02Button.on('pointerover', () => {
+        //     this.level02Button.setTexture('level-01-button-hover');
+        // });
+        // this.level02Button.on('pointerout', () => {
+        //     this.level02Button.setTexture('level-01-button');
+        // });
+        // this.level02Button.on('pointerdown', () => {
+        //     this.level02Button.setTexture('level-01-button-click');
+        // });
+        // this.level02Button.on('pointerup', () => {
+        //     this.scene.bringToTop('level-2');    
+        //     this.scene.start('level-2');
+        // });
         
         this.levelComingSoonButton.on('pointerover', () => {
             this.levelComingSoonButton.setTexture('level-coming-soon-button-hover');

@@ -59,84 +59,84 @@ export default class Mossy extends Phaser.Physics.Arcade.Sprite {
         this.anims.play('anim-mossy-idle');
 
         // Adding weapon
-        this.weapons = scene.physics.add.group({
-            classType: Weapon
+        // this.weapons = scene.physics.add.group({
+        //     classType: Weapon
 
-        })
-        this.weapon = this.weapons.get(x, y, '');
-        this.weapon.body.setSize(20, 20).setOffset(60, 40);
-        this.weapon.setVisible(false);
+        // })
+        // this.weapon = this.weapons.get(x, y, '');
+        // this.weapon.body.setSize(20, 20).setOffset(60, 40);
+        // this.weapon.setVisible(false);
 
     }
 
     // active when type space
-    makeShoot(scene, x, y) {
+    // makeShoot(scene, x, y) {
 
-        // fix bug player loss its weapon
-        if (Math.abs(x - this.weapon.x) > 700 || Math.abs(y - this.weapon.y) > 700) {
-            this.weapon.x = x
-            this.weapon.y = y
-                // this.shootExact = false
-            this.weapon.setStay()
-            this.weapon.setVisible(false)
-        }
+    //     // fix bug player loss its weapon
+    //     if (Math.abs(x - this.weapon.x) > 700 || Math.abs(y - this.weapon.y) > 700) {
+    //         this.weapon.x = x
+    //         this.weapon.y = y
+    //             // this.shootExact = false
+    //         this.weapon.setStay()
+    //         this.weapon.setVisible(false)
+    //     }
 
-        // shoot
-        if (scene.cursors.space.isDown && this.weapon.stay == 1 && this.canShoot == 1) {
-            this.canShoot = false;
-            setTimeout(() => {
-                this.canShoot = true;
-            }, 800);
-            this.weapon.anims.play('anim-fireball-blue');
-            this.weapon.setVisible(true);
-            this.weapon.flipX = this.flipX;
-            if (this.flipX == false) {
-                this.weapon.shoot(550, 0)
-            } else {
-                this.weapon.shoot(-550, 0)
-            }
-        }
+    //     // shoot
+    //     if (scene.cursors.space.isDown && this.weapon.stay == 1 && this.canShoot == 1) {
+    //         this.canShoot = false;
+    //         setTimeout(() => {
+    //             this.canShoot = true;
+    //         }, 800);
+    //         this.weapon.anims.play('anim-fireball-blue');
+    //         this.weapon.setVisible(true);
+    //         this.weapon.flipX = this.flipX;
+    //         if (this.flipX == false) {
+    //             this.weapon.shoot(550, 0)
+    //         } else {
+    //             this.weapon.shoot(-550, 0)
+    //         }
+    //     }
 
-        // shoot back if distance > 400
-        if (Math.abs(x - this.weapon.x) > 400) {
-            // this.weapon.shootBack()
-            this.weapon.go = this.weapon.back = 0
-            this.weapon.stay = 1
-            this.shootExact = false
-            this.weapon.setStay()
-            this.weapon.setVisible(false)
-        }
-        if (this.weapon.back == 1) {
-            this.goBack(x, y)
-        }
+    //     // shoot back if distance > 400
+    //     if (Math.abs(x - this.weapon.x) > 400) {
+    //         // this.weapon.shootBack()
+    //         this.weapon.go = this.weapon.back = 0
+    //         this.weapon.stay = 1
+    //         this.shootExact = false
+    //         this.weapon.setStay()
+    //         this.weapon.setVisible(false)
+    //     }
+    //     if (this.weapon.back == 1) {
+    //         this.goBack(x, y)
+    //     }
 
-        // Keep the weapon beside the player when dont type space
-        if (this.weapon.stay == 1) {
-            this.weapon.x = x
-            this.weapon.y = y
-                // this.shootExact = false
-        }
-    }
+    //     // Keep the weapon beside the player when dont type space
+    //     if (this.weapon.stay == 1) {
+    //         this.weapon.x = x
+    //         this.weapon.y = y
+    //             // this.shootExact = false
+    //     }
+    // }
 
     // collect weapon immediately
-    goBack(x, y) {
-        if (y == this.weapon.y) {
-            this.weapon.setVelocityX(-this.weapon.velocityX)
-        } else {
-            this.weapon
-            .setVelocityX(-this.weapon.velocityX)
-            .setVelocityY(-this.weapon.velocityX / (x - this.weapon.x) * (y - this.weapon.y))
-        }
-        if (Math.abs(x - this.weapon.x) < 50 && Math.abs(y - this.weapon.y) < 50) {
-            this.weapon.go = this.weapon.back = 0
-            this.weapon.stay = 1
-            this.shootExact = false
-            this.weapon.setStay()
-            this.weapon.setVisible(false)
-        }
+    // goBack(x, y) {
+    //     if (y == this.weapon.y) {
+    //         this.weapon.setVelocityX(-this.weapon.velocityX)
+    //     } else {
+    //         this.weapon
+    //         .setVelocityX(-this.weapon.velocityX)
+    //         .setVelocityY(-this.weapon.velocityX / (x - this.weapon.x) * (y - this.weapon.y))
+    //     }
+    //     if (Math.abs(x - this.weapon.x) < 50 && Math.abs(y - this.weapon.y) < 50) {
+    //         this.weapon.go = this.weapon.back = 0
+    //         this.weapon.stay = 1
+    //         this.shootExact = false
+    //         this.weapon.setStay()
+    //         this.weapon.setVisible(false)
+    //     }
         
-        this.weapon.setVisible(false)
-    }
+    //     this.weapon.setVisible(false)
+    // }
 
     // set Light 
     setLight(x, y) {
@@ -157,28 +157,28 @@ export default class Mossy extends Phaser.Physics.Arcade.Sprite {
         this.setScale(1.5);
     }
 
-    hurt(damage) {
-        if (this.isHurt == true && this.isImmortal == false) {
-            this.health -= damage;
-            this.isHurt = false
-            if (this.health <= 0) {
-                this.health = 0;
-                this.die();
-                setTimeout(() => {
-                    this.destroy();
-                }, 1000);
-            }
-            this.isImmortal = true
-            setTimeout(() => {
-                this.isImmortal = false
-            }, 2000);
-        }
-    }
+    // hurt(damage) {
+    //     if (this.isHurt == true && this.isImmortal == false) {
+    //         this.health -= damage;
+    //         this.isHurt = false
+    //         if (this.health <= 0) {
+    //             this.health = 0;
+    //             this.die();
+    //             setTimeout(() => {
+    //                 this.destroy();
+    //             }, 1000);
+    //         }
+    //         this.isImmortal = true
+    //         setTimeout(() => {
+    //             this.isImmortal = false
+    //         }, 2000);
+    //     }
+    // }
 
-    heal() {
-        this.health += 5;
-        if (this.health > this.MAX_HEALTH) this.health = this.MAX_HEALTH;
-    }
+    // heal() {
+    //     this.health += 5;
+    //     if (this.health > this.MAX_HEALTH) this.health = this.MAX_HEALTH;
+    // }
 }
 
 // hoang code end
